@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《万能鸵鸟驯养指南》深度读书分享 | 策展人：Redweff</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts 衬线与复古字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Special+Elite&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sulfuric: '#C5B378',      // 原书封面经典暗金硫酸纸色
+                        sulfuricLight: '#D8C998', // 浅硫酸纸色
+                        kraft: '#EFE8D4',         // 内页复古牛皮宣纸色
+                        soot: '#1A1817',          // 石家庄煤烟黑
+                        charcoal: '#2B2826',      // 工业深灰
+                        rust: '#8B261D',          // 铁锈暗红（印章色）
+                        rustLight: '#A8382E',
+                        ink: '#221F1D'
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        cursive: ['"Zhi Mang Xing"', 'cursive'],
+                        mono: ['"Special Elite"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 全局复古纸张与颗粒噪点质感 */
+        body {
+            background-color: #1A1817;
+            color: #EFE8D4;
+            font-family: 'Noto Serif SC', serif;
+            overflow-x: hidden;
+        }
+
+        /* 模拟硫酸纸与版画网点纹理 */
+        .paper-texture {
+            background-color: #C5B378;
+            background-image: 
+                radial-gradient(rgba(26, 24, 23, 0.08) 1px, transparent 0),
+                radial-gradient(rgba(26, 24, 23, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+            background-position: 0 0, 12px 12px;
+        }
+
+        .kraft-texture {
+            background-color: #EFE8D4;
+            background-image: 
+                linear-gradient(90deg, rgba(197, 179, 120, 0.08) 50%, transparent 50%),
+                linear-gradient(rgba(197, 179, 120, 0.08) 50%, transparent 50%);
+            background-size: 4px 4px;
+            color: #1A1817;
+        }
+
+        .dark-industrial-texture {
+            background-color: #23201E;
+            background-image: radial-gradient(rgba(197, 179, 120, 0.07) 1px, transparent 0);
+            background-size: 16px 16px;
+        }
+
+        /* 复古页码边签样式 */
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: #8B261D;
+            color: #EFE8D4;
+            font-family: 'Special Elite', monospace;
+            font-size: 0.78rem;
+            padding: 2px 10px;
+            border: 1px solid #C5B378;
+            box-shadow: 2px 2px 0px #1A1817;
+            letter-spacing: 0.05em;
+            transform: rotate(-1deg);
+            transition: all 0.2s ease;
+        }
+        .page-badge:hover {
+            transform: rotate(0deg) scale(1.05);
+            background-color: #A8382E;
+        }
+
+        /* 侧边立式书签页码 */
+        .side-page-marker {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            background: #8B261D;
+            color: #EFE8D4;
+            padding: 10px 4px;
+            font-family: 'Special Elite', monospace;
+            font-weight: bold;
+            font-size: 0.75rem;
+            border: 1px solid #1A1817;
+            box-shadow: 3px 3px 0px rgba(26,24,23,0.8);
+            letter-spacing: 2px;
+        }
+
+        /* 版画粗边框与硬阴影 */
+        .woodcut-box {
+            border: 2px solid #1A1817;
+            box-shadow: 6px 6px 0px #1A1817;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .woodcut-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #8B261D;
+        }
+
+        .woodcut-box-light {
+            border: 2px solid #C5B378;
+            box-shadow: 6px 6px 0px rgba(197, 179, 120, 0.25);
+        }
+
+        /* 印章效果 */
+        .stamp-seal {
+            border: 3px double #8B261D;
+            color: #8B261D;
+            padding: 4px 12px;
+            font-weight: 900;
+            transform: rotate(-4deg);
+            display: inline-block;
+            background: rgba(239, 232, 212, 0.85);
+            box-shadow: inset 0 0 0 1px #8B261D;
+        }
+
+        /* 签筒摇晃动画 */
+        @keyframes shakeTube {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-12deg) translateY(-4px); }
+            40% { transform: rotate(10deg) translateY(2px); }
+            60% { transform: rotate(-8deg) translateY(-2px); }
+            80% { transform: rotate(6deg); }
+        }
+        .animate-shake {
+            animation: shakeTube 0.5s ease-in-out infinite;
+        }
+
+        /* 黑胶/CD 旋转动画 */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-cd {
+            animation: spinSlow 8s linear infinite;
+            animation-play-state: paused;
+        }
+        .spin-cd.playing {
+            animation-play-state: running;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A1817;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5B378;
+            border: 1px solid #1A1817;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B261D;
+        }
+    </style>
+</head>
+<body class="selection:bg-rust selection:text-kraft">
+
+    <!-- 顶部固定导航与页码检索栏 -->
+    <header class="sticky top-0 z-50 bg-soot/95 backdrop-blur-md border-b-2 border-sulfuric px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <!-- 左侧标题与分享人署名 -->
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-sulfuric text-soot flex items-center justify-center font-black text-xl border border-kraft shadow-[2px_2px_0px_#8B261D]">
+                    鸵
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-sulfuric tracking-wider text-base md:text-lg">《万能鸵鸟驯养指南》</span>
+                        <span class="text-xs bg-rust text-kraft px-2 py-0.5 font-mono">全292页文献集</span>
+                    </div>
+                    <p class="text-xs text-sulfuricLight/80 flex items-center gap-2">
+                        <span>读书分享人 / 交互策展：<strong class="text-sulfuric underline decoration-rust underline-offset-2">Redweff</strong></span>
+                        <span class="hidden sm:inline">| 原书编纂：一个短篇</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 中部章节快速锚点 -->
+            <nav class="hidden xl:flex items-center gap-5 text-sm text-kraft/90 font-medium">
+                <a href="#chapter-1" class="hover:text-sulfuric transition flex items-center gap-1"><span class="text-rust font-mono text-xs">[P.1-9]</span>鸵鸟前世</a>
+                <a href="#chapter-2" class="hover:text-sulfuric transition flex items-center gap-1"><span class="text-rust font-mono text-xs">[P.4-64]</span>石门摇滚</a>
+                <a href="#chapter-3" class="hover:text-sulfuric transition flex items-center gap-1"><span class="text-rust font-mono text-xs">[P.14-80]</span>废人春游</a>
+                <a href="#chapter-4" class="hover:text-sulfuric transition flex items-center gap-1"><span class="text-rust font-mono text-xs">[P.52-113]</span>土法炼钢</a>
+                <a href="#chapter-5" class="hover:text-sulfuric transition flex items-center gap-1"><span class="text-rust font-mono text-xs">[P.171-291]</span>太行郊眠</a>
+                <a href="#interactive-hub" class="bg-rust hover:bg-rustLight text-kraft px-3 py-1 border border-sulfuric text-xs transition shadow-[2px_2px_0px_#C5B378]">
+                    <i class="fa-solid fa-compass-drafting mr-1"></i>互动实验室
+                </a>
+            </nav>
+
+            <!-- 右侧原书页码检索过滤器 -->
+            <div class="flex items-center gap-2">
+                <div class="relative">
+                    <input type="text" id="pageSearchInput" placeholder="搜页码(如P.61)或关键词..." 
+                        class="bg-charcoal text-kraft placeholder-sulfuric/50 text-xs px-3 py-1.5 pr-8 border border-sulfuric focus:outline-none focus:border-rust w-44 sm:w-56">
+                    <button onclick="filterByPageOrKeyword()" class="absolute right-2 top-1/2 -translate-y-1/2 text-sulfuric hover:text-rust">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </button>
+                </div>
+                <button onclick="resetFilter()" id="resetFilterBtn" class="hidden text-xs bg-sulfuric text-soot px-2 py-1 font-bold hover:bg-rust hover:text-kraft transition">
+                    重置
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO 首屏区域：复刻原书硫酸纸封面美学 -->
+    <section class="paper-texture text-soot border-b-4 border-soot relative overflow-hidden py-12 lg:py-20 px-4">
+        <!-- 背景装饰性工业齿轮与飞鸟暗纹 -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            
+            <!-- 左侧：主标题、引言与分享人 Redweff 印章 -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="page-badge"><i class="fa-solid fa-book-open"></i> 原书封面 & 目录 P.1 - P.6</span>
+                    <span class="bg-soot text-sulfuric text-xs px-3 py-1 font-mono tracking-widest uppercase">OMNIPOTENT YOUTH SOCIETY</span>
+                    <span class="stamp-seal text-xs">读书分享：Redweff</span>
+                </div>
+
+                <div class="space-y-2">
+                    <p class="text-sm md:text-base font-bold tracking-widest text-rust uppercase">
+                        1996 The Nico — 2002 万能青年旅店 — 2020 冀西南林路行
+                    </p>
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-soot leading-none">
+                        万能鸵鸟<br/>
+                        <span class="font-cursive text-6xl sm:text-7xl lg:text-8xl text-rust font-normal">驯养指南</span>
+                    </h1>
+                </div>
+
+                <blockquote class="border-l-4 border-rust pl-4 py-2 bg-kraft/60 backdrop-blur-sm pr-4 woodcut-box">
+                    <p class="text-base md:text-lg font-medium leading-relaxed text-soot">
+                        “在一次失败的旅行中我们还曾用手机短信的形式访问了一些比较特殊的人。问题是：我的鸵鸟借你骑几天好不好？最不着边的还得算那个大胡子，他问我们：<strong class="text-rust underline">除了鸵鸟还有甚？</strong>……我甚至准备将这句朴素的话作为我们正在杜撰的著作《万能鸵鸟驯养指南》的宣传语。”
+                    </p>
+                    <footer class="mt-2 text-xs font-bold text-soot/80 flex justify-between items-center">
+                        <span>—— 姬赓《那些梦想还万能的日子》（2003年）</span>
+                        <span class="page-badge">原书 P.2 (PDF P.8)</span>
+                    </footer>
+                </blockquote>
+
+                <!-- 导读说明与作者签名栏 -->
+                <div class="bg-soot text-kraft p-5 border-2 border-rust shadow-[6px_6px_0px_#8B261D] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2 text-sulfuric font-bold text-sm">
+                            <i class="fa-solid fa-pen-nib text-rust"></i>
+                            <span>关于本读书分享网页 · 策展人导言</span>
+                        </div>
+                        <p class="text-xs text-kraft/80 leading-relaxed max-w-xl">
+                            本书汇集了1999年至2021年间关于“万能青年旅店”乐队的39篇珍贵访谈、乐评、巡演手记与视觉档案。在这里，<strong>Redweff</strong> 带你翻开这本292页的泛黄文献，重返民心河畔的空房子、人民商场的八角柜台与太行山腹的轰鸣雷音。
+                        </p>
+                    </div>
+                    <div class="shrink-0 text-right border-t sm:border-t-0 sm:border-l border-sulfuric/30 pt-2 sm:pt-0 sm:pl-4">
+                        <span class="block text-[11px] text-sulfuric/70 font-mono">CURATED BY</span>
+                        <span class="font-cursive text-3xl text-sulfuric tracking-wider">Redweff</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：定制 SVG 艺术插画（复刻原书 P.1 骑鸵鸟图腾 + 首专跳水与工业烟囱合成画） -->
+            <div class="lg:col-span-5 flex flex-col items-center">
+                <div class="w-full max-w-md bg-sulfuric border-4 border-soot p-4 shadow-[10px_10px_0px_#1A1817] relative">
+                    <!-- 右上角原书页码角标 -->
+                    <div class="absolute -top-3 -right-3 z-20">
+                        <span class="page-badge text-sm px-3 py-1">原书封面 P.1 & P.58</span>
+                    </div>
+
+                    <!-- 切换插画按钮 -->
+                    <div class="flex gap-2 mb-3 border-b-2 border-soot pb-2">
+                        <button onclick="switchHeroArt('ostrich')" id="artBtn-ostrich" class="text-xs font-bold px-3 py-1 bg-soot text-sulfuric border border-soot transition">
+                            图腾壹：骑鸵鸟羽人 (P.1)
+                        </button>
+                        <button onclick="switchHeroArt('diver')" id="artBtn-diver" class="text-xs font-bold px-3 py-1 bg-kraft text-soot border border-soot hover:bg-rust hover:text-kraft transition">
+                            图腾贰：工业跳台与傻鸟 (P.58)
+                        </button>
+                    </div>
+
+                    <!-- 插画画布 1：原书封面 P.1 汉画像石风格“羽人骑鸵鸟”剪影 -->
+                    <div id="heroArt-ostrich" class="w-full aspect-square bg-[#B8A465] border-2 border-soot flex flex-col justify-between p-6 relative overflow-hidden">
+                        <div class="flex justify-between items-start text-xs font-mono text-soot/80">
+                            <span>OMNIPOTENT OSTRICH GUIDE</span>
+                            <span>[P.1 ARCHIVE]</span>
+                        </div>
+                        
+                        <!-- 精绘 SVG：原书封面骑鸵鸟剪影 -->
+                        <svg viewBox="0 0 300 280" class="w-full h-64 my-auto drop-shadow-[3px_3px_0px_rgba(139,38,29,0.4)]">
+                            <!-- 斑驳噪点背景斑块 -->
+                            <circle cx="45" cy="220" r="3" fill="#1A1817" opacity="0.6"/>
+                            <circle cx="260" cy="60" r="2" fill="#1A1817" opacity="0.5"/>
+                            <path d="M25,235 Q35,225 48,230 T60,220" stroke="#1A1817" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- 鸵鸟双足与奔跑躯干 -->
+                            <path d="M110,255 L125,245 L140,210 Q100,205 90,170 Q80,130 70,105 Q55,95 45,105 L25,115 M45,100 L20,102" 
+                                  stroke="#1A1817" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M150,255 L165,248 L158,210" stroke="#1A1817" stroke-width="10" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- 鸵鸟头部与冠羽 -->
+                            <circle cx="52" cy="92" r="14" fill="#1A1817"/>
+                            <circle cx="48" cy="90" r="2.5" fill="#C5B378"/>
+                            <path d="M58,82 Q75,75 82,88" stroke="#1A1817" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+                            <!-- 鸵鸟华丽高扬的尾羽（原书封面标志性九尾羽翼） -->
+                            <path d="M90,175 Q140,215 200,190 Q245,170 275,100" stroke="#1A1817" stroke-width="14" fill="none" stroke-linecap="round"/>
+                            <path d="M165,180 Q180,110 205,55" stroke="#1A1817" stroke-width="9" fill="none" stroke-linecap="round"/>
+                            <path d="M185,182 Q205,115 235,45" stroke="#1A1817" stroke-width="9" fill="none" stroke-linecap="round"/>
+                            <path d="M205,185 Q230,125 260,65" stroke="#1A1817" stroke-width="8" fill="none" stroke-linecap="round"/>
+                            <path d="M225,185 Q255,140 282,95" stroke="#1A1817" stroke-width="7" fill="none" stroke-linecap="round"/>
+                            <path d="M145,175 Q155,110 175,65" stroke="#1A1817" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+                            <!-- 骑在鸵鸟背上的摇滚青年/羽人 -->
+                            <circle cx="115" cy="68" r="13" fill="#1A1817"/>
+                            <!-- 扬起的手臂与身躯 -->
+                            <path d="M118,82 L125,145 L105,175 M125,145 L150,165" stroke="#1A1817" stroke-width="12" fill="none" stroke-linecap="round"/>
+                            <path d="M118,92 Q150,70 175,28" stroke="#1A1817" stroke-width="9" fill="none" stroke-linecap="round"/>
+                            <path d="M115,95 Q90,115 75,135" stroke="#1A1817" stroke-width="8" fill="none" stroke-linecap="round"/>
+                        </svg>
+
+                        <div class="text-center border-t border-soot/40 pt-2">
+                            <p class="font-bold text-lg tracking-widest text-soot">万能鸵鸟驯养指南</p>
+                            <p class="text-xs text-soot/80 font-mono">原书 P.1 封面木刻拓片复刻 · Redweff 重绘</p>
+                        </div>
+                    </div>
+
+                    <!-- 插画画布 2：原书 P.58 & P.60 跳水青年与石家庄工业巨塔海报 -->
+                    <div id="heroArt-diver" class="hidden w-full aspect-square bg-[#B8A465] border-2 border-soot flex flex-col justify-between p-6 relative overflow-hidden">
+                        <div class="flex justify-between items-start text-xs font-mono text-soot/80">
+                            <span>DESIGN BY RUAN QIANRUI</span>
+                            <span>[P.58 & P.68]</span>
+                        </div>
+
+                        <svg viewBox="0 0 300 280" class="w-full h-64 my-auto">
+                            <!-- 空中飞翔的鸵鸟与坠落/飞升的青年 -->
+                            <path d="M35,55 Q45,45 55,58 L48,70 Z" fill="#1A1817"/>
+                            <path d="M38,55 L32,35" stroke="#1A1817" stroke-width="2.5"/>
+                            <!-- 空中跳水少年剪影（弯曲如弓的经典符号） -->
+                            <g transform="translate(85, 35) scale(0.95)">
+                                <path d="M40,30 C65,10 95,25 105,50 C90,55 75,70 60,115 L45,155 L38,150 L52,105 C62,70 72,50 65,40 C50,35 35,50 20,70 L12,65 Z" fill="#1A1817"/>
+                                <circle cx="42" cy="48" r="12" fill="#1A1817"/>
+                            </g>
+                            <!-- 高耸的三层水泥跳台 -->
+                            <path d="M295,120 L185,80 L180,90 L265,130 L265,240 L285,240 Z" fill="#1A1817"/>
+                            <path d="M295,170 L175,140 L170,150 L265,180 Z" fill="#1A1817"/>
+                            <!-- 底部石家庄重工业烟囱与炼油塔群 -->
+                            <rect x="10" y="220" width="280" height="45" fill="#1A1817"/>
+                            <rect x="35" y="165" width="18" height="60" fill="#1A1817"/>
+                            <rect x="65" y="150" width="26" height="75" fill="#1A1817"/>
+                            <rect x="105" y="175" width="14" height="50" fill="#1A1817"/>
+                            <path d="M30,180 L100,180 M30,200 L125,200" stroke="#C5B378" stroke-width="1.5"/>
+                            <!-- 工业浓烟 -->
+                            <circle cx="44" cy="150" r="8" fill="#1A1817" opacity="0.4"/>
+                            <circle cx="78" cy="132" r="12" fill="#1A1817" opacity="0.5"/>
+                        </svg>
+
+                        <div class="text-center border-t border-soot/40 pt-2">
+                            <p class="font-cursive text-2xl tracking-widest text-soot">万能青年旅店</p>
+                            <p class="text-xs text-soot/80 font-mono">原书 P.58 巡演海报 & P.60 跳水少年意象</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 全书页码脉络时间轴条 -->
+    <div class="bg-charcoal border-b-2 border-sulfuric/40 py-4 px-4 overflow-x-auto">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-6 min-w-[768px] text-xs">
+            <div class="flex items-center gap-2 text-sulfuric font-bold shrink-0">
+                <i class="fa-solid fa-timeline text-rust"></i>
+                <span>原书文献编年索引：</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="bg-rust text-kraft px-1.5 py-0.5 font-mono">P.1-3</span>
+                <span class="text-kraft/80">1999-2003 The Nico与万能鸵鸟</span>
+            </div>
+            <span class="text-sulfuric/40">→</span>
+            <div class="flex items-center gap-2">
+                <span class="bg-rust text-kraft px-1.5 py-0.5 font-mono">P.4-13</span>
+                <span class="text-kraft/80">2006 Rock Home Town石家庄</span>
+            </div>
+            <span class="text-sulfuric/40">→</span>
+            <div class="flex items-center gap-2">
+                <span class="bg-rust text-kraft px-1.5 py-0.5 font-mono">P.14-44</span>
+                <span class="text-kraft/80">2007-2009 喜剧、十万嬉皮与南方春游</span>
+            </div>
+            <span class="text-sulfuric/40">→</span>
+            <div class="flex items-center gap-2">
+                <span class="bg-rust text-kraft px-1.5 py-0.5 font-mono">P.46-166</span>
+                <span class="text-kraft/80">2010-2015 首专爆发、台北之夜与摩托生活</span>
+            </div>
+            <span class="text-sulfuric/40">→</span>
+            <div class="flex items-center gap-2">
+                <span class="bg-rust text-kraft px-1.5 py-0.5 font-mono">P.171-291</span>
+                <span class="text-kraft/80">2015-2021 河北墨麒麟与《冀西南林路行》</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主体内容区 -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-20">
+
+        <!-- 检索结果提示横幅（默认隐藏） -->
+        <div id="searchStatusBanner" class="hidden bg-rust text-kraft p-4 border-2 border-sulfuric flex items-center justify-between">
+            <div>
+                <i class="fa-solid fa-filter mr-2"></i>
+                <span id="searchStatusText" class="text-sm font-bold">正在筛选包含特定页码的读书笔记...</span>
+            </div>
+            <button onclick="resetFilter()" class="bg-kraft text-soot px-3 py-1 text-xs font-bold">显示全部章节</button>
+        </div>
+
+        <!-- ==========================================
+             第一章：鸵鸟与 The Nico 的前世 (P.1 - P.9)
+             ========================================== -->
+        <section id="chapter-1" class="book-section space-y-8" data-pages="P.1 P.2 P.3 P.6 P.7 P.8 P.9">
+            <!-- 章节大标题 -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-sulfuric pb-4 gap-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-sulfuric text-soot font-mono font-bold px-3 py-0.5 text-sm">CHAPTER 01</span>
+                        <span class="page-badge">原书正文 P.1 - P.3 (PDF P.7-9) & P.6</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-sulfuric tracking-wide">
+                        序章 · 那些梦想还万能的日子：The Nico 与傻鸟
+                    </h2>
+                </div>
+                <p class="text-xs text-sulfuricLight/70 font-mono">读书笔记整理：Redweff</p>
+            </div>
+
+            <!-- 3列文献卡片 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- 卡片 1.1：《通俗歌曲》对 The Nico 的采访 (P.1) -->
+                <article class="kraft-texture p-6 woodcut-box relative flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start gap-2 border-b border-soot/20 pb-3">
+                            <div>
+                                <span class="text-xs font-bold text-rust uppercase tracking-wider">1999年7月 · 《通俗歌曲》</span>
+                                <h3 class="text-xl font-black text-soot mt-0.5">《对 The Nico 的采访》</h3>
+                            </div>
+                            <span class="page-badge shrink-0">原书 P.1</span>
+                        </div>
+
+                        <p class="text-sm leading-relaxed text-soot/90">
+                            1996年，还在上<strong>初二</strong>的董亚千（吉他）、姬赓（贝司）和张培栋（鼓手）组建了万青的前身 <strong>The Nico</strong>。接受这篇采访时，他们刚刚陆续过了18岁生日。
+                        </p>
+
+                        <div class="bg-sulfuric/30 p-3 border-l-4 border-soot text-xs space-y-2 text-soot">
+                            <p><strong>● 名字由来（P.1）：</strong>“绝对是 <em>Blind Melon</em>（盲瓜乐队），他们是一支音乐修养和音乐感觉超群的乐队！我们的乐队名字就来自他们的专辑标题（及主唱 Shannon Hoon 小女儿的名字），这是对他的纪念。”</p>
+                            <p><strong>● 少年姬赓的文学底色（P.1）：</strong>当记者问起歌词为什么有现代派色彩时，18岁的姬赓回答：一方面受<strong>查拉、苏波、安德列·布勒东、迪伦·托马斯</strong>等现代诗歌影响；另一方面是“垮派”，如<strong>乔伊斯、品钦</strong>。</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-soot/20 flex justify-between items-center text-xs text-soot/70 font-mono">
+                        <span>单曲《巢穴在望》每人分得200元 (P.25)</span>
+                        <span>Redweff 摘录</span>
+                    </div>
+                </article>
+
+                <!-- 卡片 1.2：2千家的空房子与“抠水泥开门” (P.2) -->
+                <article class="kraft-texture p-6 woodcut-box relative flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start gap-2 border-b border-soot/20 pb-3">
+                            <div>
+                                <span class="text-xs font-bold text-rust uppercase tracking-wider">2003年 · 姬赓早期名篇</span>
+                                <h3 class="text-xl font-black text-soot mt-0.5">民心河边的“青年旅店”</h3>
+                            </div>
+                            <span class="page-badge shrink-0">原书 P.2</span>
+                        </div>
+
+                        <p class="text-sm leading-relaxed text-soot/90">
+                            所谓“旅店”，其实是<strong>董亚千（2千）家在石家庄民心河边的一套空房子</strong>。里面终日游荡着衣着奇怪的小青年、游荡的学生、孤僻的女青年。毫不夸张地说，当时在街上随便找个眼熟的问问，准有2千家钥匙。
+                        </p>
+
+                        <div class="bg-rust/10 p-3 border border-rust/40 text-xs space-y-2 text-soot">
+                            <p class="font-bold text-rust"><i class="fa-solid fa-key mr-1"></i> 原书名场面：唯一没钥匙的房主（P.2）</p>
+                            <p>“<strong>2千是唯一一个没有他家钥匙的人</strong>，每次回家他都得抠下门边一块水泥，然后伸手进去开门，进去经常要面对些睡相难看的陌生男女，但对此2千毫不以为意，因为他当时的主要工作是养狗，弹琴，同时设法堵死所有对自己可能会有帮助的通路。”</p>
+                        </div>
+
+                        <p class="text-xs text-soot/80 leading-relaxed">
+                            1999年元旦，14岁的小马仔“2崔”（崔旭东，后加入声音玩具）还带着2千在街上放倒了30多岁的混混，两人跑路到白洋淀逃亡了一个礼拜（P.2, P.91）。
+                        </p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-soot/20 flex justify-between items-center text-xs text-soot/70 font-mono">
+                        <span>出处：《那些梦想还万能的日子》</span>
+                        <span>原书 P.2 (PDF P.8)</span>
+                    </div>
+                </article>
+
+                <!-- 卡片 1.3：2000年转折：狗死、抑郁与更名冲晦气 (P.2-3, P.6) -->
+                <article class="kraft-texture p-6 woodcut-box relative flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start gap-2 border-b border-soot/20 pb-3">
+                            <div>
+                                <span class="text-xs font-bold text-rust uppercase tracking-wider">2000-2002年 · 幻觉破灭与重生</span>
+                                <h3 class="text-xl font-black text-soot mt-0.5">红T恤葬狗与改名“冲晦气”</h3>
+                            </div>
+                            <span class="page-badge shrink-0">原书 P.2-3, P.6</span>
+                        </div>
+
+                        <p class="text-sm leading-relaxed text-soot/90">
+                            2000年姬赓去湖南长沙上大学。走的前几天，2千的狗被车撞死了。“看着2千用他穿了很久的红T恤把狗包着放进坑里，我第一次知道了什么叫无能为力。<strong>万能的我们连自己口袋里的生命都保护不了。</strong>”（P.2）
+                        </p>
+
+                        <div class="bg-sulfuric/30 p-3 border-l-4 border-rust text-xs space-y-2 text-soot">
+                            <p><strong>● 秦皇岛疗养（P.6, P.92）：</strong>董亚千患上严重抑郁症，摔坏了好几把琴，随后去秦皇岛海边租房疗养、养狗、钻研爵士与布鲁斯吉他，并在海边写出了《秦皇岛》的旋律。</p>
+                            <p><strong>● 2002年底更名（P.6）：</strong>姬赓提议将 The Nico 改为“万能青年旅店”：“我觉得我们乐队这些年太败了，所以换名字冲冲晦气。改了名后还请了一次客。”随后姬赓写出第一首中文词《不万能的喜剧》，劝了董亚千3天去唱中文。</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-soot/20 flex justify-between items-center text-xs text-soot/70 font-mono">
+                        <span>“万能只是年轻给我们的美好幻觉”</span>
+                        <span>原书 P.3 & P.6</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             第二章 + 深度交互 1：Rock Home Town 石家庄摇滚图景与四人棱镜 (P.4 - P.13, P.58 - P.64)
+             ========================================== -->
+        <section id="chapter-2" class="book-section space-y-8" data-pages="P.4 P.5 P.6 P.8 P.9 P.10 P.11 P.33 P.58 P.59 P.60 P.61 P.62 P.63 P.64">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-sulfuric pb-4 gap-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-sulfuric text-soot font-mono font-bold px-3 py-0.5 text-sm">CHAPTER 02 & INTERACTIVE 01</span>
+                        <span class="page-badge">原书 P.4 - P.13 & P.58 - P.64</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-sulfuric tracking-wide">
+                        第一章 · Rock Home Town：石家庄地下摇滚与四人棱镜
+                    </h2>
+                </div>
+                <p class="text-xs text-sulfuricLight/70 font-mono">点击下方人物与城市坐标切换原书文献 | Redweff</p>
+            </div>
+
+            <!-- 交互模块 1：万青四人眼中的石家庄单字评价 + 石家庄摇滚地标切换器 -->
+            <div class="dark-industrial-texture border-2 border-sulfuric p-6 lg:p-8 shadow-[8px_8px_0px_#8B261D]">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- 左侧：四位成员单字评价交互按钮 (源自原书 P.61《周末画报》健崔访谈) -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-sulfuric flex items-center gap-2">
+                                <i class="fa-solid fa-eye text-rust"></i>
+                                <span>交互棱镜：他们眼中的石家庄</span>
+                            </h3>
+                            <span class="page-badge">原书 P.61 & P.64</span>
+                        </div>
+                        <p class="text-xs text-kraft/70 leading-relaxed">
+                            在2010年《周末画报》访谈（原书 P.61）中，四位成员各自用一个字形容了他们的老巢石家庄；而在和小宇与张翠平的报道（P.4-13, P.62-64）中，这座城市的荒诞地标亦历历在目。<strong>请点击下方按钮切换阅读：</strong>
+                        </p>
+
+                        <!-- 4人单字按钮网格 -->
+                        <div class="grid grid-cols-2 gap-3 pt-1">
+                            <button onclick="selectPrism('dong')" id="prismBtn-dong" class="prism-btn text-left p-3 border-2 border-sulfuric bg-rust text-kraft transition flex items-center justify-between">
+                                <div>
+                                    <span class="block text-xs opacity-80">董亚千 (主唱/吉他)</span>
+                                    <span class="font-bold text-sm">评价石家庄：</span>
+                                </div>
+                                <span class="text-3xl font-black font-serif bg-soot text-sulfuric w-11 h-11 flex items-center justify-center border border-sulfuric">烦</span>
+                            </button>
+
+                            <button onclick="selectPrism('ji')" id="prismBtn-ji" class="prism-btn text-left p-3 border-2 border-sulfuric/50 bg-soot text-kraft hover:border-sulfuric transition flex items-center justify-between">
+                                <div>
+                                    <span class="block text-xs opacity-80">姬赓 (贝司/作词)</span>
+                                    <span class="font-bold text-sm">评价石家庄：</span>
+                                </div>
+                                <span class="text-3xl font-black font-serif bg-charcoal text-sulfuric w-11 h-11 flex items-center justify-center border border-sulfuric/40">怪</span>
+                            </button>
+
+                            <button onclick="selectPrism('shi')" id="prismBtn-shi" class="prism-btn text-left p-3 border-2 border-sulfuric/50 bg-soot text-kraft hover:border-sulfuric transition flex items-center justify-between">
+                                <div>
+                                    <span class="block text-xs opacity-80">史立 (小号手)</span>
+                                    <span class="font-bold text-sm">评价石家庄：</span>
+                                </div>
+                                <span class="text-3xl font-black font-serif bg-charcoal text-sulfuric w-11 h-11 flex items-center justify-center border border-sulfuric/40">脏</span>
+                            </button>
+
+                            <button onclick="selectPrism('yang')" id="prismBtn-yang" class="prism-btn text-left p-3 border-2 border-sulfuric/50 bg-soot text-kraft hover:border-sulfuric transition flex items-center justify-between">
+                                <div>
+                                    <span class="block text-xs opacity-80">杨友耕 (鼓手)</span>
+                                    <span class="font-bold text-sm">评价石家庄：</span>
+                                </div>
+                                <span class="text-3xl font-black font-serif bg-charcoal text-sulfuric w-11 h-11 flex items-center justify-center border border-sulfuric/40">左</span>
+                            </button>
+                        </div>
+
+                        <!-- 城市地标档案切换按钮 -->
+                        <div class="pt-3 border-t border-sulfuric/20">
+                            <span class="block text-xs text-sulfuric font-mono mb-2">【石门摇滚传奇地标与段子检索】：</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="selectPrism('rockdoor')" id="prismBtn-rockdoor" class="prism-btn text-xs px-3 py-1.5 border border-sulfuric/50 bg-soot text-kraft hover:bg-rust">
+                                    梁涛：Rock Home Town与“勤”字刺青 (P.8-9)
+                                </button>
+                                <button onclick="selectPrism('qisheng')" id="prismBtn-qisheng" class="prism-btn text-xs px-3 py-1.5 border border-sulfuric/50 bg-soot text-kraft hover:bg-rust">
+                                    殡仪馆旁的“七声”酒吧 (P.10-11)
+                                </button>
+                                <button onclick="selectPrism('ceng')" id="prismBtn-ceng" class="prism-btn text-xs px-3 py-1.5 border border-sulfuric/50 bg-soot text-kraft hover:bg-rust">
+                                    靠“蹭”维生与带40人进场 (P.64)
+                                </button>
+                                <button onclick="selectPrism('huayao')" id="prismBtn-huayao" class="prism-btn text-xs px-3 py-1.5 border border-sulfuric/50 bg-soot text-kraft hover:bg-rust">
+                                    闻华药怪味防感冒 (P.27, P.216)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：动态展示面板 -->
+                    <div class="lg:col-span-7 kraft-texture p-6 lg:p-8 woodcut-box min-h-[320px] flex flex-col justify-between relative" id="prismDisplayCard">
+                        <!-- 内容由 JS 动态渲染 -->
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             第三章：废人们都在忙什么：南方春游与外星人神侃 (P.14 - P.44, P.70 - P.87)
+             ========================================== -->
+        <section id="chapter-3" class="book-section space-y-8" data-pages="P.14 P.15 P.20 P.23 P.37 P.38 P.41 P.42 P.43 P.44 P.70 P.71 P.72 P.73 P.79 P.80 P.84 P.85 P.86">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-sulfuric pb-4 gap-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-sulfuric text-soot font-mono font-bold px-3 py-0.5 text-sm">CHAPTER 03</span>
+                        <span class="page-badge">原书 P.14 - P.44 & P.70 - P.87</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-sulfuric tracking-wide">
+                        第二章 · 废人们都在忙什么：春游记、火锅轶事与外星远征军
+                    </h2>
+                </div>
+                <p class="text-xs text-sulfuricLight/70 font-mono">还原褪去悲情滤镜后真实的“欢快苦逼” | Redweff</p>
+            </div>
+
+            <!-- 人物志四格漫画式档案 (P.14, P.23, P.71-73, P.79-86) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 董亚千 -->
+                <div class="bg-charcoal border-2 border-sulfuric p-5 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-sulfuric">GUITAR / VOCAL</span>
+                            <span class="page-badge">P.12, P.23, P.91</span>
+                        </div>
+                        <h3 class="text-xl font-black text-sulfuric mb-1">董亚千 (董二千)</h3>
+                        <p class="text-xs text-rust font-bold mb-3">“落跑吉他、六指琴魔、外星人信徒”</p>
+                        <ul class="text-xs text-kraft/85 space-y-2 leading-relaxed">
+                            <li>● <strong>童年与逃亡（P.91）：</strong>小学偷卷子毕业，初中去市教研室偷卷子被抓；1999年元旦揍了黑社会大哥逃往白洋淀。</li>
+                            <li>● <strong>误诊脑癌吃冰淇淋（P.73, P.92）：</strong>录《喜剧》时左耳失聪半边脸麻痹，庸医误诊为恶性肿瘤，跟姬赓交代完遗言第二天得知是误诊，“立马飞奔下床吃了俩冰淇淋”。</li>
+                            <li>● <strong>名言（P.7）：</strong>“以前老想当摇滚明星。现在觉得当摇滚明星是小蛋仔儿的想法，我要当艺术家。”</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 姬赓 -->
+                <div class="bg-charcoal border-2 border-sulfuric p-5 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-sulfuric">BASS / LYRICS</span>
+                            <span class="page-badge">P.14, P.79-80</span>
+                        </div>
+                        <h3 class="text-xl font-black text-sulfuric mb-1">姬赓 (姬老师)</h3>
+                        <p class="text-xs text-rust font-bold mb-3">“河北师大英语教师、记者杀手、建盏藏家”</p>
+                        <ul class="text-xs text-kraft/85 space-y-2 leading-relaxed">
+                            <li>● <strong>为什么弹贝斯（P.91, P.97）：</strong>小时候看《葫芦娃》以为里面的音效是贝斯搞出来的；后来听磁带觉得有种音色好听决定弹贝斯，之后才发现那其实是电吉他。</li>
+                            <li>● <strong>书房书单（P.14, P.79-80）：</strong>喜爱哈维尔（“无权者的权利就是拒绝谎言”）、奥维德《变形记》、王小波、黑塞、谷崎润一郎、八卷本《穆旦译文集》及科普丛书《第一推动》。</li>
+                            <li>● <strong>理想死法（P.14）：</strong>“变成太空垃圾。”</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 史立 -->
+                <div class="bg-charcoal border-2 border-sulfuric p-5 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-sulfuric">TRUMPET / CHEF</span>
+                            <span class="page-badge">P.73, P.85, P.232</span>
+                        </div>
+                        <h3 class="text-xl font-black text-sulfuric mb-1">史立 (Shit Lee)</h3>
+                        <p class="text-xs text-rust font-bold mb-3">“川菜回锅肉大厨、《爱摇》美编、外联部长”</p>
+                        <ul class="text-xs text-kraft/85 space-y-2 leading-relaxed">
+                            <li>● <strong>百元火锅义气（P.73）：</strong>姬赓大学学弟，染大黄毛唱迪克牛仔面试被开除。寒假前掏出身上仅有的100多块请电声乐队吃火锅，结果没钱回成都老家，在学校窝了一冬。</li>
+                            <li>● <strong>投奔石家庄（P.73）：</strong>姬赓冒充《爱摇》主编晓朱给史立父亲打电话担保（P.232）。董亚千初见觉得他“面如重枣，目似朗星”，掏出干妈给的200块（全是5块的）：“来，史立，拿着，花！”</li>
+                            <li>● <strong>绝活（P.73, P.85）：</strong>能把星海牌破小号吹得极低且极准；最拿手川菜是回锅肉与自制泡菜酸萝卜。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 杨友耕 -->
+                <div class="bg-charcoal border-2 border-sulfuric p-5 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-mono text-sulfuric">DRUMS / CRAFTS</span>
+                            <span class="page-badge">P.71, P.73, P.162</span>
+                        </div>
+                        <h3 class="text-xl font-black text-sulfuric mb-1">杨友耕 (小耕)</h3>
+                        <p class="text-xs text-rust font-bold mb-3">“秦皇岛精神富二代、复古机车与木雕玩家”</p>
+                        <ul class="text-xs text-kraft/85 space-y-2 leading-relaxed">
+                            <li>● <strong>16岁被“拐”回庄（P.73）：</strong>董亚千在北京见16岁的小耕混得落魄但眉目清秀：“小耕，长这么帅，跟哥混吧，出去傍个富婆养活大哥。”带回石家庄后却让他每天早上8点起床练鼓。</li>
+                            <li>● <strong>精神富二代（P.71）：</strong>“我觉得我的人生，我的童年，我的家庭，我的爱给了我一笔巨大的精神财富，所以我觉得我是富二代。”</li>
+                            <li>● <strong>父亲是军区大厨（P.162）：</strong>拿手绝活是秦皇岛羊汤与“土豆西红柿香菇青椒鸡蛋面”，还擅长雕黑檀木烟斗。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 双栏经典文献精读：《记一次春游》 (P.37-38) vs 《外星人神侃录》 (P.43-44) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- 左栏：《记一次春游》 -->
+                <div class="kraft-texture p-6 lg:p-8 woodcut-box space-y-4">
+                    <div class="flex justify-between items-start border-b-2 border-soot pb-3">
+                        <div>
+                            <span class="text-xs font-bold text-rust">姬赓爆笑巡演游记 · 2009年2月</span>
+                            <h3 class="text-2xl font-black text-soot">《记一次春游：2009年南方巡演》</h3>
+                        </div>
+                        <span class="page-badge">原书 P.37 - P.38</span>
+                    </div>
+
+                    <p class="text-sm text-soot/90 leading-relaxed">
+                        2009年2月，万青带着美籍半盲笛手<strong>王朗（Brian Walker）</strong>和刚从美国游泳过来的<strong>小馒头</strong>开启“傻鸟开腔”深广长三地巡演。担心赔钱全买春运硬座，王朗用矿泉水瓶装了四瓶衡水老白干上火车。
+                    </p>
+
+                    <div class="space-y-2 text-xs text-soot bg-sulfuric/25 p-4 border border-soot">
+                        <p><strong>● 反复殴打小馒头（P.37）：</strong>“出站看到王妓，问他什么时候吃果子狸，他说哪有果子狸，我们把他拖到路边扇了一顿……大馒头留了个欠揍的发型，拖到草丛里扇了一顿……小馒头在里屋睡觉，拎起来扇了一顿，小馒头大呼‘以待！以待油！’”</p>
+                        <p><strong>● 凑30多块钱去派出所捞人（P.37）：</strong>半夜三点多听说大馒头和王朗被警察抓走，几个人狂笑一通后开始凑钱，“4点过我们凑了30多块钱，准备天亮去派出所捞人”，结果只是路边撒尿被保安盘问。</p>
+                        <p><strong>● 球迷高喊退票（P.38）：</strong>“看着这些受骗的影迷，我也很生气。这乐队太操蛋了，就那么几首歌，只能演50分钟，还跑出来骗吃骗喝。我告诉那些球迷，跟这些江湖骗子废话也没用，直接上去扇他们就是。”</p>
+                    </div>
+                </div>
+
+                <!-- 右栏：《外星人神侃录》 -->
+                <div class="kraft-texture p-6 lg:p-8 woodcut-box space-y-4">
+                    <div class="flex justify-between items-start border-b-2 border-soot pb-3">
+                        <div>
+                            <span class="text-xs font-bold text-rust">吴鞑靼《逆音专访》补记 · 2010年10月</span>
+                            <h3 class="text-2xl font-black text-soot">银河系统领地3000远征军文艺兵</h3>
+                        </div>
+                        <span class="page-badge">原书 P.41 - P.44, P.101</span>
+                    </div>
+
+                    <p class="text-sm text-soot/90 leading-relaxed">
+                        当记者问到《在这颗行星所有的酒馆》是否关注2012和外星人资料时，采访瞬间变成了1个多小时的“外星人端着崂山啤酒、嚼着槟榔指点地球”神侃现场：
+                    </p>
+
+                    <div class="space-y-2 text-xs text-soot bg-sulfuric/25 p-4 border border-soot">
+                        <p><strong>● 失散千年的文艺兵（P.43）：</strong>“我们都是统领地3000远征军里面的文艺兵啊！千哥是外星人，我是火头军（史立：等我恢复记忆给你们做炸蚯蚓），联合国新任命的马来西亚妇女就是我们文工团的头！”</p>
+                        <p><strong>● 吉米·亨德里克斯是远征军大头目（P.44）：</strong>董亚千与姬赓热血点评《Electric Ladyland》：“吉米绝对是远征军里一大头目！平克·弗洛伊德估计是个小蛋仔，听了吉米后看到月之暗面的外星基地了，才忽然发觉到牛逼的事儿来。”</p>
+                        <p><strong>● 半夜风筝当飞碟（P.101 张向东文）：</strong>有天半夜亚千溜达看见空中有红绿灯光闪烁，激灵打个冷噤：“组织派飞碟来接我啦！”立刻短信群发通知亲友，拐个角过来发现是几个老头在放夜光风筝。</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             第四章：《万能青年旅店》首专与阮千瑞视觉密码 (P.52 - P.78, P.103 - P.115, P.251 - P.260)
+             ========================================== -->
+        <section id="chapter-4" class="book-section space-y-8" data-pages="P.48 P.52 P.54 P.55 P.56 P.57 P.68 P.103 P.104 P.108 P.251 P.254 P.255">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-sulfuric pb-4 gap-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-sulfuric text-soot font-mono font-bold px-3 py-0.5 text-sm">CHAPTER 04</span>
+                        <span class="page-badge">原书 P.52 - P.78 & P.103 - P.115 & P.251 - P.260</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-sulfuric tracking-wide">
+                        第三章 · 土法炼钢与毁烬蓝图：首专文案及视觉密码
+                    </h2>
+                </div>
+                <p class="text-xs text-sulfuricLight/70 font-mono">和小宇绝世文案 × 阮千瑞金色硫酸纸设计 | Redweff</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- 左侧 7 列：和小宇撰写的两篇封神文案摘录 (P.52-55, P.67) -->
+                <div class="lg:col-span-7 bg-charcoal border-2 border-sulfuric p-6 lg:p-8 space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sulfuric/30 pb-3">
+                        <h3 class="text-2xl font-black text-sulfuric">“拳头打进了棉花，脏水中完成洗礼”</h3>
+                        <span class="page-badge">原书 P.52-55 & P.67 (文/和小宇)</span>
+                    </div>
+
+                    <div class="space-y-4 text-sm text-kraft/90 leading-relaxed">
+                        <blockquote class="p-4 bg-soot border-l-4 border-sulfuric">
+                            <p class="italic mb-2">
+                                “唱片的录音棚就是排练室，更早以前它是董亚千家里的老宅，闷在年代久远的四层红砖楼房里，周围住的多数是老人……那些80年代的红砖还能叫红色吗，大概只能算煤球渣子的近亲。正如唱歌的最终会沉默，昨日奔跑着的青年和鸵鸟，一转眼就是今天的腐肉，秃鹫。”
+                            </p>
+                            <p class="italic">
+                                “录音室的窗外，短暂出现过一大片空地。那是开发商圈出的牧场，即将到来的肥肉和鲜血，即将到来的千万人厕身其间刨食的日子……唱片完成之时，空地已经被耸立的高楼填满。<strong class="text-sulfuric">我们渴望这张塞了很多东西的唱片还能留下空地的丝缕感觉，这样的话，所有听到的人，就有可能并肩站在一起。</strong>”
+                            </p>
+                            <footer class="text-right text-xs text-sulfuric font-mono mt-2">—— 《万能青年旅店》专辑文案 (2010-11-12，原书 P.54-55)</footer>
+                        </blockquote>
+
+                        <blockquote class="p-4 bg-soot border-l-4 border-rust">
+                            <p class="italic">
+                                “时代列车滚滚碾过，不想给谁以喘息余地。顷刻间，他们显得土，显得慢了，显得不够直接，显得缺乏取悦他人的能力。他们竟然还敢唱中文，还挖掘自我的深处……他们在脏水中完成洗礼。不知不觉间，他们成了迷人的怪物，中国新音乐的奇葩，外省青年的历史宝藏，未来无限的精神不动产。好，现在时间到了，去听这些<strong class="text-rustLight">超现实主义土鳖</strong>的心跳，去看他们牛逼闪闪的现场。这些个前仆后继的，经常要扫进历史垃圾堆的，<strong class="text-sulfuric">曾经苍老而今风华正茂的身体和心灵</strong>，现在全部站起来了，成立了，活下去了，发光发热了，来到你面前了。”
+                            </p>
+                            <footer class="text-right text-xs text-sulfuric font-mono mt-2">—— 万青豆瓣小站文案 & 《爱摇》104期 (原书 P.52-53, P.67)</footer>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <!-- 右侧 5 列：阮千瑞《毁烬蓝图》封面视觉解密 (P.68, P.103-106, P.251-260) -->
+                <div class="lg:col-span-5 paper-texture text-soot p-6 lg:p-8 woodcut-box flex flex-col justify-between space-y-4">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start border-b-2 border-soot pb-3">
+                            <div>
+                                <span class="text-xs font-bold text-rust">视觉设计师 · 阮千瑞专访</span>
+                                <h3 class="text-2xl font-black text-soot">《毁烬蓝图》与封面玄机</h3>
+                            </div>
+                            <span class="page-badge">P.68, P.104, P.254</span>
+                        </div>
+
+                        <ul class="space-y-3 text-xs sm:text-sm text-soot leading-relaxed">
+                            <li class="bg-kraft/70 p-3 border border-soot">
+                                <strong class="text-rust block mb-0.5">1. 为什么是向上飞升的跳水者？(P.68, P.254)</strong>
+                                取样自工业跳台海报。初稿是往下坠落的跳水运动员，西班牙搭档点醒阮千瑞：“那个人不应往下落，让他飞起来试试看？”调整角度并做<strong>负像（灵感源自 New Order《Technique》）</strong>处理后，弯曲的身体兼具痛苦与释放的双重隐喻。
+                            </li>
+                            <li class="bg-kraft/70 p-3 border border-soot">
+                                <strong class="text-rust block mb-0.5">2. 毛体书法的“完美盗窃”(P.68, P.255)</strong>
+                                “乐队名称是毛泽东的书法，它时常是题词和国家命令，我认为这是一次完美的盗窃。从来都是别人来给我们书写，这次我们自己来书写。”
+                            </li>
+                            <li class="bg-kraft/70 p-3 border border-soot">
+                                <strong class="text-rust block mb-0.5">3. 8块钱一张的昂贵金色硫酸纸 (P.255)</strong>
+                                首版封面采用一令要价上千元的进口金色硫酸纸，单张整开成本高达8元。“自我吹嘘般的金色压在黑色严肃的视觉上，令唱片整体更加荒诞奇特。”
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="text-xs font-mono text-soot/80 border-t border-soot/30 pt-2 flex justify-between">
+                        <span>“在这个虚幻的时代，这张专辑珍贵得像金子”</span>
+                        <span>原书 P.105</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             第五章：出入太行 骤雨重山：《冀西南林路行》与郊眠寺 (P.171 - P.291)
+             ========================================== -->
+        <section id="chapter-5" class="book-section space-y-8" data-pages="P.171 P.183 P.203 P.204 P.205 P.225 P.238 P.242 P.249 P.262 P.266 P.271 P.274 P.275">
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-sulfuric pb-4 gap-4">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-sulfuric text-soot font-mono font-bold px-3 py-0.5 text-sm">CHAPTER 05</span>
+                        <span class="page-badge">原书 P.171 - P.291</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-sulfuric tracking-wide">
+                        终章 · 出入太行 骤雨重山：从井陉采石场到“郊眠寺”
+                    </h2>
+                </div>
+                <p class="text-xs text-sulfuricLight/70 font-mono">十年磨一剑 · 44分22秒的漫游解谜 | Redweff</p>
+            </div>
+
+            <!-- 定制横幅插画 + 叙事卡片 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- 卡片 5.1：2013太行山腹的眩晕 (P.203-205, P.262) -->
+                <div class="kraft-texture p-6 woodcut-box flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-rust">发端：2013年井陉与太行山</span>
+                            <span class="page-badge">P.204-205, P.262</span>
+                        </div>
+                        <h3 class="text-xl font-black text-soot">“神话握手现代化，千座山峰化水泥”</h3>
+                        <p class="text-xs sm:text-sm text-soot/90 leading-relaxed">
+                            2013年一次出河北去西北，火车钻入太行山腹（井陉“中国钙都”一带）：“山脚的村庄还运行着古老仁慈的秩序，而对面山腰，<strong>炸药歌舞团的表演拉开大幕</strong>。”被开膛破肚的山体与干涸的泥河，化作了《泥河》《采石》《山雀》《河北墨麒麟》的母题。
+                        </p>
+                        <div class="bg-soot text-sulfuric p-3 text-xs">
+                            <strong>姬赓反驳“环保生态说”（P.205）：</strong>“我特别不愿意让大家只是想到环保生态，太把自己当成一个城市里的人了。这就是你本人的世界，我们是一体的。你看见它被填回去，种上树，但是重要的珍贵的东西早就没有了。<strong>这和一个人被消耗的过程是一样的。</strong>”
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-soot/20 text-xs font-mono text-soot/70">
+                        《南方人物周刊》邓郁专访 · 原书 P.203-221
+                    </div>
+                </div>
+
+                <!-- 卡片 5.2：《花城》文学对话：歌与诗的流失 (P.238-241) -->
+                <div class="kraft-texture p-6 woodcut-box flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-rust">《花城》2019年第2期 · 何平×姬赓</span>
+                            <span class="page-badge">P.238 - P.241</span>
+                        </div>
+                        <h3 class="text-xl font-black text-soot">《流失确实是在发生的》与杜甫李贺</h3>
+                        <p class="text-xs sm:text-sm text-soot/90 leading-relaxed">
+                            面对文学界将其歌词奉为现代诗典范，姬赓在《花城》访谈中冷静剖析了“先曲后词”的妥协：汉语发音吐字让音乐让步空间很小，语义和韵律妥协间必然伴随信息的流失。
+                        </p>
+                        <div class="bg-sulfuric/30 p-3 border-l-4 border-rust text-xs text-soot space-y-1.5">
+                            <p><strong>● 把杜甫带到21世纪（P.283）：</strong>姬赓读到杜甫《久雨期王将军不至》中的<strong>“泱泱泥污人，听听国多狗”</strong>顿时起鸡皮疙瘩，由此化用出《郊眠寺》的“星河下 电子荒原 / 亿万场冷暖 亿万泥污人”。</p>
+                            <p><strong>● 音乐肖像《张洲》（P.171-189）：</strong>2015年与小河合作，为越南逃难船民张洲改编人物肖像曲。</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-soot/20 text-xs font-mono text-soot/70">
+                        《花城》专题 · 原书 P.238-241 & P.283
+                    </div>
+                </div>
+
+                <!-- 卡片 5.3：暖房与“郊眠寺”录音室 (P.249, P.274-279) -->
+                <div class="kraft-texture p-6 woodcut-box flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-rust">2020年 · 河北电影制片厂录音棚</span>
+                            <span class="page-badge">P.249, P.274-279</span>
+                        </div>
+                        <h3 class="text-xl font-black text-soot">落成“郊眠寺”与文智涌的麒麟叫</h3>
+                        <p class="text-xs sm:text-sm text-soot/90 leading-relaxed">
+                            棉二排练厅遇拆迁后，乐队在2020年春搬入<strong>河北电影制片厂</strong>一座300多平、层高8米的80年代老配音棚，姬赓为其取名<strong>“郊眠寺”</strong>（离姬赓家仅500米）。董亚千购入模拟电路尼夫（Neve BCM10）调音台与Studer磁带机。
+                        </p>
+                        <div class="bg-soot text-kraft p-3 text-xs">
+                            <strong>“西郊有密林，助君出重围”（P.262, P.273）：</strong>直到2020年7月31日写下《郊眠寺》这句词，姬赓才惊觉几年前半梦半醒蹦出的“冀西南林路行”六个字真正落定，“一身冷汗”。2020年12月22日零点，新专上线，半天售出20万张（P.271）。
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-soot/20 text-xs font-mono text-soot/70">
+                        《暖房》P.249 & 《时代症候里的突围》P.271
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             互动实验室专区 (INTERACTIVE HUB：包含互动2、互动3、互动4、互动5)
+             ========================================== -->
+        <section id="interactive-hub" class="space-y-16 pt-8 border-t-4 border-double border-sulfuric">
+            
+            <div class="text-center space-y-2">
+                <span class="bg-rust text-kraft px-4 py-1 text-xs font-mono tracking-widest uppercase border border-sulfuric">INTERACTIVE EXPERIENCE LAB BY REDWEFF</span>
+                <h2 class="text-3xl md:text-5xl font-black text-sulfuric">万能鸵鸟 · 交互式文献实验室</h2>
+                <p class="text-sm text-sulfuricLight/80 max-w-2xl mx-auto">
+                    结合原书真实访谈细节设计的四大沉浸式互动环节：摇晃《十万嬉皮》下下签筒、在老宅与郊眠寺试听声学档案、挑战原书细节问答领取“万能青年旅店入住证”。
+                </p>
+            </div>
+
+            <!-- ------------------------------------------
+                 互动 2：《十万嬉皮》求签筒 & 歌词意象解码器 (关联 P.32, P.48, P.55-57, P.72-74)
+                 ------------------------------------------ -->
+            <div class="paper-texture text-soot p-6 lg:p-10 woodcut-box">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b-2 border-soot pb-4 mb-6">
+                    <div>
+                        <span class="text-xs font-bold text-rust uppercase">INTERACTIVE 02 · 原书 P.48 & P.72 典故还原</span>
+                        <h3 class="text-2xl md:text-3xl font-black text-soot">《十万嬉皮》求签筒 · 万青歌词意象解码器</h3>
+                    </div>
+                    <span class="page-badge text-sm">原书 P.32, P.48, P.55-57, P.72-74, P.262-265</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- 左侧：求签筒典故与摇签交互 -->
+                    <div class="lg:col-span-5 bg-kraft p-6 border-2 border-soot shadow-[6px_6px_0px_#1A1817] text-center space-y-4">
+                        <p class="text-xs text-soot/80 leading-relaxed text-left bg-sulfuric/30 p-3 border-l-4 border-rust">
+                            <strong>【原书典故 P.48 & P.72 & P.127】：</strong>2008年董亚千27岁生日时，姬赓写了《十万嬉皮》送给他。陈郁与马世芳在书中写道：“看上去完全是一个人去求签问卜，没想到遭遇到一个操蛋的算命先生，装了满满一筒子的下下签！”董亚千看完脸色煞白，足足堵了一个多月才释然开唱。
+                        </p>
+
+                        <!-- SVG 签筒动画 -->
+                        <div class="py-4 flex justify-center">
+                            <div id="fortuneTube" class="cursor-pointer select-none transition-transform" onclick="drawLyricLot()">
+                                <svg viewBox="0 0 160 200" class="w-36 h-44 mx-auto">
+                                    <!-- 露出的竹签 -->
+                                    <rect x="52" y="15" width="8" height="70" fill="#D8C998" stroke="#1A1817" stroke-width="2" transform="rotate(-8 56 50)"/>
+                                    <rect x="68" y="8" width="8" height="75" fill="#EFE8D4" stroke="#1A1817" stroke-width="2" transform="rotate(-2 72 45)"/>
+                                    <rect x="82" y="12" width="8" height="70" fill="#8B261D" stroke="#1A1817" stroke-width="2" transform="rotate(5 86 45)"/>
+                                    <rect x="96" y="18" width="8" height="68" fill="#D8C998" stroke="#1A1817" stroke-width="2" transform="rotate(12 100 50)"/>
+                                    <!-- 签筒主体 -->
+                                    <path d="M40,65 L120,65 L112,185 L48,185 Z" fill="#2B2826" stroke="#1A1817" stroke-width="4"/>
+                                    <rect x="36" y="60" width="88" height="12" fill="#8B261D" stroke="#1A1817" stroke-width="3"/>
+                                    <rect x="44" y="168" width="72" height="10" fill="#C5B378" stroke="#1A1817" stroke-width="2"/>
+                                    <!-- 签筒文字 -->
+                                    <rect x="65" y="85" width="30" height="72" fill="#EFE8D4" stroke="#1A1817" stroke-width="2"/>
+                                    <text x="80" y="108" text-anchor="middle" fill="#8B261D" font-weight="900" font-size="14">十万</text>
+                                    <text x="80" y="128" text-anchor="middle" fill="#1A1817" font-weight="900" font-size="14">嬉皮</text>
+                                    <text x="80" y="148" text-anchor="middle" fill="#1A1817" font-weight="900" font-size="12">签筒</text>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <button onclick="drawLyricLot()" class="w-full bg-rust hover:bg-rustLight text-kraft font-black py-3 px-6 border-2 border-soot shadow-[4px_4px_0px_#1A1817] active:translate-y-0.5 transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>摇晃签筒 · 抽取万青歌词签文</span>
+                        </button>
+                    </div>
+
+                    <!-- 右侧：签文结果与原书幕后考据显示区 -->
+                    <div class="lg:col-span-7 bg-soot text-kraft p-6 lg:p-8 border-2 border-soot shadow-[8px_8px_0px_#8B261D] min-h-[340px] flex flex-col justify-between" id="lotResultBox">
+                        <!-- 默认展示第一支签 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------------------------------
+                 互动 3：复古合成器试听台 & 双专辑曲目声学档案 (关联 P.54-57, P.84-87, P.262-265)
+                 ------------------------------------------ -->
+            <div class="dark-industrial-texture border-2 border-sulfuric p-6 lg:p-10 shadow-[8px_8px_0px_#C5B378]">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-sulfuric/40 pb-4 mb-6">
+                    <div>
+                        <span class="text-xs font-bold text-sulfuric uppercase">INTERACTIVE 03 · 声学档案与 Web Audio 模拟合成器</span>
+                        <h3 class="text-2xl md:text-3xl font-black text-kraft mt-1">从红砖老宅到郊眠寺 · 专辑曲目手稿留声机</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="page-badge">P.54-57 & P.84-87 & P.262-265</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- 左侧：曲目列表切换 -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <div class="flex gap-2 mb-2">
+                            <button onclick="switchAlbumTab('album1')" id="albumTab1" class="flex-1 py-2 px-3 text-xs font-bold bg-sulfuric text-soot border border-sulfuric">
+                                2010《万能青年旅店》(P.54)
+                            </button>
+                            <button onclick="switchAlbumTab('album2')" id="albumTab2" class="flex-1 py-2 px-3 text-xs font-bold bg-soot text-sulfuric border border-sulfuric/40 hover:border-sulfuric">
+                                2020《冀西南林路行》(P.262)
+                            </button>
+                        </div>
+
+                        <div id="trackListContainer" class="space-y-2 max-h-[360px] overflow-y-auto pr-1">
+                            <!-- 由 JS 动态渲染曲目列表 -->
+                        </div>
+                    </div>
+
+                    <!-- 右侧：留声机转盘、声波可视化与原书曲目幕后详情 -->
+                    <div class="lg:col-span-7 kraft-texture p-6 lg:p-8 woodcut-box space-y-5">
+                        <!-- 顶部黑胶转盘与合成器播放控制 -->
+                        <div class="flex flex-col sm:flex-row items-center gap-5 bg-soot text-kraft p-4 border-2 border-soot">
+                            <!-- 旋转金色 CD/黑胶 -->
+                            <div id="cdDisc" class="w-20 h-20 rounded-full bg-sulfuric border-4 border-rust flex items-center justify-center shrink-0 spin-cd relative shadow-inner">
+                                <div class="w-6 h-6 rounded-full bg-soot border-2 border-kraft"></div>
+                                <span class="absolute bottom-1 text-[8px] font-mono text-soot font-bold">O.Y.S</span>
+                            </div>
+
+                            <div class="flex-1 space-y-2 text-center sm:text-left">
+                                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                                    <span id="currentTrackAlbumTag" class="text-[11px] bg-rust text-kraft px-2 py-0.5 font-mono">2010 同名专辑</span>
+                                    <span id="currentTrackPageTag" class="page-badge">原书 P.57</span>
+                                </div>
+                                <h4 id="currentTrackTitle" class="text-xl font-black text-sulfuric">09. 杀死那个石家庄人</h4>
+                                <p id="currentTrackCredits" class="text-xs text-kraft/70 font-mono">作词：姬赓 | 作曲：董亚千 | 大提琴：张楠</p>
+                            </div>
+
+                            <!-- 模拟旋律触发按钮 -->
+                            <button onclick="toggleSynthAudio()" id="playAudioBtn" class="bg-sulfuric hover:bg-rust text-soot hover:text-kraft font-bold px-4 py-2.5 text-xs border border-kraft transition flex items-center gap-2 shrink-0">
+                                <i class="fa-solid fa-play" id="playAudioIcon"></i>
+                                <span id="playAudioText">弹奏动机音色</span>
+                            </button>
+                        </div>
+
+                        <!-- 动态声波条 (Canvas) -->
+                        <div class="bg-soot/90 p-2 border border-soot flex items-center justify-between gap-2">
+                            <span class="text-[10px] font-mono text-sulfuric px-2">WAVEFORM SIMULATOR</span>
+                            <canvas id="waveformCanvas" width="400" height="28" class="w-full h-7"></canvas>
+                        </div>
+
+                        <!-- 歌词节选与原书考据 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-sulfuric/25 p-4 border-l-4 border-soot">
+                                <span class="text-xs font-bold text-rust block mb-2"><i class="fa-solid fa-quote-left mr-1"></i>原书歌词档案：</span>
+                                <p id="currentTrackLyrics" class="text-xs sm:text-sm font-serif whitespace-pre-line leading-relaxed text-soot font-medium"></p>
+                            </div>
+                            <div class="bg-white/60 p-4 border border-soot/30 space-y-2">
+                                <span class="text-xs font-bold text-soot block"><i class="fa-solid fa-book-bookmark text-rust mr-1"></i>原书访谈幕后解析：</span>
+                                <p id="currentTrackStory" class="text-xs leading-relaxed text-soot/90"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------------------------------
+                 互动 4：《万能鸵鸟驯养指南》原书知识闯关 & 旅店入住证生成器
+                 ------------------------------------------ -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- 左侧 7 列：5道原书细节问答测试 -->
+                <div class="lg:col-span-7 kraft-texture p-6 lg:p-8 woodcut-box space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-soot pb-3">
+                        <div>
+                            <span class="text-xs font-bold text-rust uppercase">INTERACTIVE 04 · 文献细节考验</span>
+                            <h3 class="text-2xl font-black text-soot">《万能鸵鸟驯养指南》原书精读闯关</h3>
+                        </div>
+                        <span class="page-badge">全书页码联动</span>
+                    </div>
+
+                    <div id="quizContainer" class="space-y-4">
+                        <!-- 由 JS 渲染当前题目 -->
+                    </div>
+                </div>
+
+                <!-- 右侧 5 列：万能青年旅店专属入住登记证 (含分享人 Redweff 签章) -->
+                <div class="lg:col-span-5 paper-texture text-soot p-6 lg:p-8 woodcut-box flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b-2 border-soot pb-2">
+                            <span class="font-mono text-xs font-bold">CHECK-IN PASS GENERATOR</span>
+                            <span class="page-badge">P.2 民心河空房子</span>
+                        </div>
+                        <h3 class="text-xl font-black text-soot">生成你的“万能青年旅店”房卡</h3>
+                        <p class="text-xs text-soot/80">
+                            原书 P.2 记载：“当时在街上随便找个眼熟的问问，准有2千家钥匙。”输入你的名字与最爱曲目，领取由读书分享人 <strong>Redweff</strong> 签发的民心河老宅钥匙凭证：
+                        </p>
+
+                        <div class="space-y-3 pt-1">
+                            <div>
+                                <label class="block text-xs font-bold mb-1">旅客称呼 / 摇滚代号：</label>
+                                <input type="text" id="guestNameInput" value="骑鸵鸟的石家庄青年" oninput="updatePassCard()"
+                                    class="w-full bg-kraft text-soot px-3 py-1.5 text-sm border-2 border-soot focus:outline-none focus:border-rust font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold mb-1">入住房间 / 精神坐标：</label>
+                                <select id="guestRoomSelect" onchange="updatePassCard()" class="w-full bg-kraft text-soot px-3 py-1.5 text-sm border-2 border-soot font-bold">
+                                    <option value="民心河畔 402 排练室 (P.2 / P.54)">民心河畔 402 排练室 (P.2 / P.54)</option>
+                                    <option value="秦皇岛海边牧羊犬小屋 (P.6 / P.135)">秦皇岛海边牧羊犬小屋 (P.6 / P.135)</option>
+                                    <option value="人民商场八角柜台旁 (P.57 / P.124)">人民商场八角柜台旁 (P.57 / P.124)</option>
+                                    <option value="西郊密林 · 郊眠寺录音室 (P.249 / P.275)">西郊密林 · 郊眠寺录音室 (P.249 / P.275)</option>
+                                    <option value="银河系统领地3000远征军酒馆 (P.43)">银河系统领地3000远征军酒馆 (P.43)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 复古房卡预览 -->
+                        <div id="passCardPreview" class="bg-kraft border-2 border-soot p-5 shadow-[4px_4px_0px_#1A1817] relative mt-4 space-y-3">
+                            <div class="flex justify-between items-start border-b border-soot pb-2">
+                                <div>
+                                    <span class="text-[10px] font-mono block text-rust font-bold">OMNIPOTENT YOUTH SOCIETY PASS</span>
+                                    <h4 class="text-lg font-black text-soot">万能青年旅店 · 门禁钥匙证</h4>
+                                </div>
+                                <span class="font-mono text-xs bg-soot text-sulfuric px-2 py-0.5" id="passQuizScoreBadge">段位：候补房客</span>
+                            </div>
+                            <div class="text-xs space-y-1.5 text-soot">
+                                <p><strong>持有人：</strong><span id="passGuestName" class="underline font-bold">骑鸵鸟的石家庄青年</span></p>
+                                <p><strong>下榻处：</strong><span id="passGuestRoom">民心河畔 402 排练室 (P.2 / P.54)</span></p>
+                                <p><strong>开门方式：</strong>抠下门边一块水泥，伸手进去开门 (原书 P.2)</p>
+                                <p><strong>配给物资：</strong>2块钱三九普啤一瓶 (P.10)、音箱后藏着的一根中南海 (P.49)</p>
+                            </div>
+                            <div class="pt-2 border-t border-dashed border-soot/40 flex justify-between items-end">
+                                <div class="text-[10px] font-mono text-soot/70">
+                                    <div>DATE: 2026.11.06</div>
+                                    <div>BOOK REF: P.1 - P.292</div>
+                                </div>
+                                <div class="stamp-seal text-xs">
+                                    签发人：Redweff
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ------------------------------------------
+                 互动 5：在这颗行星所有的酒馆 · 读者微醺共鸣墙 (关联 P.10, P.37, P.52, P.56)
+                 ------------------------------------------ -->
+            <div class="kraft-texture p-6 lg:p-10 woodcut-box space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b-2 border-soot pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-rust uppercase">INTERACTIVE 05 · 读者读书笔记与酒馆打卡</span>
+                        <h3 class="text-2xl md:text-3xl font-black text-soot">《在这颗行星所有的酒馆》共鸣留言墙</h3>
+                    </div>
+                    <span class="page-badge">原书 P.10, P.37, P.49, P.52</span>
+                </div>
+
+                <!-- 留言输入栏 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 bg-sulfuric/30 p-4 border-2 border-soot">
+                    <div class="md:col-span-3">
+                        <label class="block text-xs font-bold text-soot mb-1">你的署名：</label>
+                        <input type="text" id="pubUser" placeholder="例如：乒乓少年 / Redweff友邻" class="w-full bg-kraft text-soot px-3 py-2 text-xs border border-soot font-bold">
+                    </div>
+                    <div class="md:col-span-3">
+                        <label class="block text-xs font-bold text-soot mb-1">点一杯原书同款酒水：</label>
+                        <select id="pubDrink" class="w-full bg-kraft text-soot px-3 py-2 text-xs border border-soot font-bold">
+                            <option value="🍺 2块钱三九普啤 (七声酒吧 P.10)">🍺 2块钱三九普啤 (七声酒吧 P.10)</option>
+                            <option value="🍶 矿泉水瓶装衡水老白干 (春游火车 P.37)">🍶 矿泉水瓶装衡水老白干 (春游火车 P.37)</option>
+                            <option value="🍷 7块钱邵阳大曲 (姬赓史立大学 P.73)">🍷 7块钱邵阳大曲 (姬赓史立大学 P.73)</option>
+                            <option value="🥃 音箱后藏着的一根中南海 (千哥老宅 P.49)">🥃 音箱后藏着的一根中南海 (千哥老宅 P.49)</option>
+                            <option value="🍵 福建建阳油滴建盏茶 (姬赓收藏 P.163)">🍵 福建建阳油滴建盏茶 (姬赓收藏 P.163)</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-4">
+                        <label class="block text-xs font-bold text-soot mb-1">写下你的读后感或最触动你的原书页码：</label>
+                        <input type="text" id="pubComment" placeholder="西郊有密林，助君出重围..." class="w-full bg-kraft text-soot px-3 py-2 text-xs border border-soot">
+                    </div>
+                    <div class="md:col-span-2 flex items-end">
+                        <button onclick="addPubMessage()" class="w-full bg-soot hover:bg-rust text-sulfuric hover:text-kraft font-bold py-2 px-4 text-xs border border-soot transition">
+                            敬一杯并上墙
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 留言卡片瀑布流 -->
+                <div id="pubWallContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- JS 初始化默认书评卡片 -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- 页脚：原书致敬与 Redweff 署名 -->
+    <footer class="bg-soot border-t-4 border-sulfuric text-kraft py-12 px-4 mt-16">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                    <span class="bg-sulfuric text-soot font-black px-2.5 py-1 text-sm">万能鸵鸟驯养指南</span>
+                    <span class="text-xs font-mono text-sulfuric">PAGES: 1 - 292 COMPLETE ARCHIVE</span>
+                </div>
+                <p class="text-xs text-kraft/70 max-w-xl leading-relaxed">
+                    本页面根据上传文献《万能鸵鸟驯养指南（乐队压缩版）.pdf》（由“一个短篇”整理制作，收录《通俗歌曲》《我爱摇滚乐》《音乐时空》《城市画报》《南方人物周刊》《花城》等访谈纪实）设计制作。所有章节均已严格核对并标注原书页码。
+                </p>
+            </div>
+
+            <div class="border-2 border-sulfuric p-4 bg-charcoal text-right space-y-1 shrink-0 shadow-[4px_4px_0px_#8B261D]">
+                <span class="text-[10px] font-mono text-sulfuric block">WEB DESIGN & BOOK SHARING CURATOR</span>
+                <p class="text-lg font-bold text-kraft">读书分享作者：<span class="text-sulfuric font-cursive text-3xl ml-1">Redweff</span></p>
+                <p class="text-[11px] text-kraft/60 font-mono">“希望80岁的时候还可以叫万青” —— 原书 P.136</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         JavaScript 交互逻辑与原书数据库
+         ========================================== -->
+    <script>
+        // 1. 首屏插画切换
+        function switchHeroArt(type) {
+            const ostrichDiv = document.getElementById('heroArt-ostrich');
+            const diverDiv = document.getElementById('heroArt-diver');
+            const btnOstrich = document.getElementById('artBtn-ostrich');
+            const btnDiver = document.getElementById('artBtn-diver');
+
+            if (type === 'ostrich') {
+                ostrichDiv.classList.remove('hidden');
+                diverDiv.classList.add('hidden');
+                btnOstrich.className = 'text-xs font-bold px-3 py-1 bg-soot text-sulfuric border border-soot transition';
+                btnDiver.className = 'text-xs font-bold px-3 py-1 bg-kraft text-soot border border-soot hover:bg-rust hover:text-kraft transition';
+            } else {
+                ostrichDiv.classList.add('hidden');
+                diverDiv.classList.remove('hidden');
+                btnDiver.className = 'text-xs font-bold px-3 py-1 bg-soot text-sulfuric border border-soot transition';
+                btnOstrich.className = 'text-xs font-bold px-3 py-1 bg-kraft text-soot border border-soot hover:bg-rust hover:text-kraft transition';
+            }
+        }
+
+        // 2. 互动 1：石家庄四人棱镜与城市坐标数据库 (严格对应原书页码)
+        const prismData = {
+            dong: {
+                tag: '《周末画报》第624期访谈 · 健崔',
+                page: '原书 P.61 (PDF P.67)',
+                title: '董亚千眼中的石家庄：「烦」',
+                quote: '“就是让我挺烦的。然后就是脏乱差，连呼吸口干净空气的权利都没有。还有就是比如我在很多年前就是石家庄最好的吉他手，但是我连一个糊口的工作都没有，一个月500块钱的活儿都没有，都不给我这个机会，明白我的意思吧。然后我其实挺烦石家庄，但是我又摆脱不了它。”',
+                notes: '补充考据（原书 P.92）：董亚千录完《喜剧》后耳鸣眩晕被庸医误诊为脑癌，后来去了一趟空气新鲜、氧气充足的野三坡，耳鸣症状第三天就消失了，“其实就是石家庄太缺氧”。'
+            },
+            ji: {
+                tag: '《周末画报》第624期访谈 · 健崔',
+                page: '原书 P.61 (PDF P.67)',
+                title: '姬赓眼中的石家庄：「怪」',
+                quote: '“我觉得特别怪。它那根弦，就是城市的弦绷猛紧，感觉特别忙，不过它是一个没有效率的地方，大家都被忙碌，都很焦躁，都很焦虑，但是又很贫瘠，不放松，也不繁荣，我觉得跟很多地方都不一样。”',
+                notes: '补充考据（原书 P.26 & P.86）：姬赓在《民心河畔的黑暗之心》与电台访谈中还提到，石家庄有的地方不繁荣，但满街都是宫殿般的洗浴中心和慢摇吧，生活节奏很慢，但并不放松。'
+            },
+            shi: {
+                tag: '《周末画报》第624期访谈 · 健崔',
+                page: '原书 P.61 (PDF P.67)',
+                title: '史立眼中的石家庄：「脏」',
+                quote: '“脏。我觉得石家庄挺脏的。一个比我还脏的城市。空气挺脏的，还有道路，我甚至还觉得人的想法其实也挺脏的，就不细说了。”',
+                notes: '补充考据（原书 P.73 & P.232）：尽管吐槽石家庄脏，但当年史立在湖南上大学混不下去时，曾哭着喊着对姬赓说：“石家庄就是我的天空之城，我梦中的地方，死活都要去！”'
+            },
+            yang: {
+                tag: '《周末画报》第624期访谈 · 健崔',
+                page: '原书 P.61 & P.33',
+                title: '杨友耕眼中的石家庄：「左」',
+                quote: '“反正石家庄就是不太好，跟我家乡（秦皇岛）比的话肯定是没法儿比，怎么说呢，其实我的看法可能有点儿红色，但是这个不太好说。我觉得石家庄挺左的。”',
+                notes: '补充考据（原书 P.33）：在2009年《城市画报》访谈中，被问到“石家庄最让你们厌恶的是什么？”乐队的回答是：“空气污染，左，满街铁栅栏。”'
+            },
+            rockdoor: {
+                tag: '《ROCK HOME TOWN 我们还活着》 · 文/和小宇',
+                page: '原书 P.8 - P.9 (PDF P.14-15)',
+                title: '前“旺财”乐队主唱梁涛：石门就是 Rock Door！',
+                quote: '“你知道石家庄用英文怎么说吗？就是 Rock Home Town！石家庄原来叫石门，也就是‘Rock Door’，这是缘分，也是天意……”',
+                notes: '原书 P.9 爆笑段子：梁涛是石家庄唯一坚持索要演出报酬（一人一张“么动动”100元）的乐手。有一次他喝得大醉，第二天醒来发现胳膊上多了一个拿针加钢笔水刺的“勤”字刺青。梁涛想了想说：“这是在提醒自己，永远不要勤奋。”'
+            },
+            qisheng: {
+                tag: '《ROCK HOME TOWN 我们还活着》 · 文/和小宇',
+                page: '原书 P.10 - P.11 (PDF P.16-17)',
+                title: '西行几十米是殡仪馆的“七声”酒吧：门票5块，三九普啤2块',
+                quote: '“酒吧位于石家庄西南角一条非常偏僻的小道边，东行几百米能见到几所高校，西行几十米是个殡仪馆，而殡仪馆的前身则是火葬场……出售的啤酒是最便宜的三九普啤，跟小卖部价格一样每瓶两块。直到关门，这个价格没有变过。”',
+                notes: '原书 P.11 记载：2004年10月“七声”倒闭前的最后一场店庆演出门票涨到20元，买票进去的人没多少。外联赵一凡醉得一塌糊涂，出了门就开始拿头撞树，过一会儿就在树下睡着了。'
+            },
+            ceng: {
+                tag: '《咱石家庄自己的摇滚乐队》 · 《河北青年报》张翠平',
+                page: '原书 P.64 (PDF P.70)',
+                title: '石家庄摇滚特色：“蹭”与1个乐队带40个人免票进场',
+                quote: '“姬赓说：‘如果说石家庄的摇滚乐团有什么特色的话，那就是蹭。’所谓的蹭，就是蹭录音、蹭场地、蹭饭还蹭住。当然‘蹭’也是有代价的，作为回报，他们经常演出时带人进去还人情债……有一次在北京演出，规定一个乐队只能带4个人，我们带了将近40个，老板也没办法。”',
+                notes: '姬赓得意地总结（P.64）：“其实这就是石家庄的习气带到外面，外面的人不适应。不过他们也没办法，适应就好，下次我带20个人，他们就会觉得我进步了。”'
+            },
+            huayao: {
+                tag: '《民心河畔的黑暗之心》 & 《出入太行 骤雨重山》',
+                page: '原书 P.27, P.133, P.216',
+                title: '华北制药厂的青霉素发酵味：“预防感冒福利”',
+                quote: '“生活节奏很慢，但并不放松。据说经常闻华药的怪味能预防感冒和慢性咽炎。这也算石家庄的一项福利吧。” —— 姬赓 (原书 P.27)',
+                notes: '原书 P.216 记载：董亚千在方北路上的房子就挨着华药宿舍区，离发小姬赓住的师大家属院不过一两条街。1958年投产的华药主打青霉素，空气里天天飘着一股像玉米发酵的味道，“傍晚6点下班，换掉药厂的衣裳”便是由此生长出的真实日常。'
+            }
+        };
+
+        function selectPrism(key) {
+            const data = prismData[key];
+            const container = document.getElementById('prismDisplayCard');
+            
+            // 更新按钮高亮状态
+            document.querySelectorAll('.prism-btn').forEach(btn => {
+                btn.classList.remove('bg-rust', 'border-sulfuric');
+                btn.classList.add('bg-soot', 'border-sulfuric/50');
+            });
+            const activeBtn = document.getElementById('prismBtn-' + key);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-soot', 'border-sulfuric/50');
+                activeBtn.classList.add('bg-rust', 'border-sulfuric');
+            }
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-soot pb-3">
+                        <span class="text-xs font-bold text-rust uppercase tracking-wider">${data.tag}</span>
+                        <span class="page-badge">${data.page}</span>
+                    </div>
+                    <h4 class="text-2xl md:text-3xl font-black text-soot">${data.title}</h4>
+                    <blockquote class="p-4 bg-sulfuric/35 border-l-4 border-rust text-sm md:text-base text-soot font-medium leading-relaxed">
+                        ${data.quote}
+                    </blockquote>
+                    <div class="bg-soot text-kraft p-4 text-xs leading-relaxed border border-rust">
+                        <strong class="text-sulfuric"><i class="fa-solid fa-magnifying-glass-location mr-1"></i>Redweff 跨页文献互证：</strong>
+                        <p class="mt-1 text-kraft/90">${data.notes}</p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-soot/20 flex justify-between items-center text-xs font-mono text-soot/70">
+                    <span>ARCHIVE SOURCE: OMNIPOTENT OSTRICH GUIDE</span>
+                    <span>CURATED BY REDWEFF</span>
+                </div>
+            `;
+        }
+
+        // 3. 互动 2：《十万嬉皮》求签筒数据 (对应原书各页)
+        const lyricLots = [
+            {
+                num: '第壹签 · 下下签（破执签）',
+                song: '《十万嬉皮》',
+                page: '原书 P.32, P.48, P.56, P.72',
+                lines: '大梦一场的董二千先生\n推开窗户，举起望远镜\n眼底映出，一阵浓烟\n前已无通路，后不见归途\n敌视现实，虚构远方 / 东张西望，一无所长\n四体不勤，五谷不分 / 文不能测字，武不能防身',
+                decoding: '【原书 P.72 董亚千与姬赓自述】：\n董二千：“姬赓把词写好后摁了俩月不敢给我。我满怀希望跑去他家一看，看完了脸色煞白，这歌足足堵了我一个多月！把我写成个衰逼还得让我自个儿唱出来，多欺负人啊。第一次在D22唱完以后，那歌我突然就懂了，释然了。”\n姬赓：“你他妈必须得承认你自己那操性，才有可能继续。你必须先把眼前一大堆幻影打跑，不能继续骗自己。”'
+            },
+            {
+                num: '第贰签 · 中平签（山海签）',
+                song: '《揪心的玩笑与漫长的白日梦》',
+                page: '原书 P.30, P.47, P.55, P.93',
+                lines: '溜出时代银行的后门 / 撕开夜幕和暗哑的平原\n是谁来自山川湖海 / 却囿于昼夜，厨房与爱\n来到自我意识的边疆 / 看到父亲坐在云端抽烟\n他说孩子去和昨天和解吧 / 就像我们从前那样',
+                decoding: '【原书 P.93 董亚千访谈 & P.86 电台访谈】：\n董亚千：“2006年姬赓突然爆发一下子写了三首歌词，看到《揪心的玩笑和漫长的白日梦》我挺感动的，因为里面有父亲的故事（董父因癌症早逝）。”\n而在 P.86 中央人民广播电台访谈里，主持人嘎嘎调侃：“终夜囿于厨房与爱，我觉得这是给川菜厨子史立研究回锅肉写的，厨子也有爱。”'
+            },
+            {
+                num: '第叁签 · 大凶化吉签（崩塌签）',
+                song: '《杀死那个石家庄人》',
+                page: '原书 P.15, P.26, P.57, P.74, P.124',
+                lines: '傍晚6点下班 / 换掉药厂的衣裳\n妻子在熬粥 / 我去喝几瓶啤酒\n如此生活30年 / 直到大厦崩塌\n河北师大附中 / 乒乓少年背向我\n沉默的注视 / 无法离开的教室',
+                decoding: '【原书 P.74 姬赓破例解读 & P.124 马世芳考据】：\n姬赓：“本来我们从来不解释歌词，今儿破个例：这歌就是写一个家庭，第一段父亲，第二段母亲，第三段孩子。偏执的中年妇女认为手里有把假枪想去保卫生活，虚假的中产阶级温馨，结果全他妈是扯淡，对热情和自尊的蚕食！”\n在 P.125 中，姬赓还笑着提到乐评人张晓舟最早把“妻子在熬粥”听成了“妻子在澳洲”。'
+            },
+            {
+                num: '第肆签 · 上上签（破雾签）',
+                song: '《秦皇岛》',
+                page: '原书 P.42, P.45, P.56, P.97, P.135',
+                lines: '站在能分割世界的桥 / 还是看不清\n在那些时刻 / 遮蔽我们 黑暗的心 究竟是什么\n住在我心里孤独的 / 孤独的海怪 痛苦之王\n开始厌倦 深海的光 停滞的海浪',
+                decoding: '【原书 P.42, P.97, P.135 幕后考据】：\n并非坐在海边看大海所写，而是董亚千在秦皇岛疗养时，姬赓去看望他，两人晚上租了一辆双人自行车在沿海公路遛那条比利时牧羊犬、经过大桥的意象。\n原书 P.97 记载：最初亚千写了一段小号让史立吹，史立憋出一句“我能不能不吹这个？”后来在民心河边史立吹了自己编的前奏，亚千听得快哭了：“就是它了！”'
+            },
+            {
+                num: '第伍签 · 荒原签（突围签）',
+                song: '《郊眠寺》 / 《山雀》',
+                page: '原书 P.248, P.263-265, P.273',
+                lines: '爱与疼痛 / 不觉茫茫道路长\n生活历险 / 并肩莽莽原野荒\n我有迷魂 额头滚烫 / 我有迷魂 人间明暗\n西郊有密林 / 助君出重围',
+                decoding: '【原书 P.248 赵亮 & P.273 姬赓访谈】：\n经纪人赵亮在《山雀》中听到了姬赓少有的感性与温柔：“爱与疼痛，不觉茫茫道路长；生活历险，并肩莽莽原野荒。”\n而《郊眠寺》前奏的塔铃声，是姬赓与声音艺术家蒋竹韵（积木）专门在山里录制的采样（原书 P.279）。'
+            }
+        ];
+
+        let currentLotIndex = 0;
+
+        function drawLyricLot() {
+            const tube = document.getElementById('fortuneTube');
+            tube.classList.add('animate-shake');
+
+            setTimeout(() => {
+                tube.classList.remove('animate-shake');
+                currentLotIndex = (currentLotIndex + 1) % lyricLots.length;
+                renderLotResult(lyricLots[currentLotIndex]);
+                playShortChord(); // 触发一声清脆泛音
+            }, 450);
+        }
+
+        function renderLotResult(lot) {
+            const box = document.getElementById('lotResultBox');
+            box.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sulfuric/30 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-rust text-kraft px-3 py-1 text-xs font-bold border border-sulfuric">${lot.num}</span>
+                            <span class="text-sulfuric font-bold text-lg">${lot.song}</span>
+                        </div>
+                        <span class="page-badge">${lot.page}</span>
+                    </div>
+                    <div class="bg-charcoal p-4 border-l-4 border-sulfuric font-serif text-sm sm:text-base text-sulfuricLight whitespace-pre-line leading-relaxed">
+                        ${lot.lines}
+                    </div>
+                    <div class="bg-rust/20 border border-rust p-4 text-xs sm:text-sm text-kraft/90 whitespace-pre-line leading-relaxed">
+                        ${lot.decoding}
+                    </div>
+                </div>
+                <div class="mt-4 pt-2 border-t border-sulfuric/20 flex justify-between items-center text-[11px] font-mono text-sulfuric/60">
+                    <span>点击左侧签筒可继续抽签</span>
+                    <span>解码整理：Redweff</span>
+                </div>
+            `;
+        }
+
+        // 4. 互动 3：双专辑曲目声学档案与 Web Audio 合成器
+        const albumTracks = {
+            album1: [
+                {
+                    id: 'a1-1',
+                    title: '01. 狗尿馆 (器乐曲 Intro)',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.54, P.121',
+                    credits: '作曲/吉他：董亚千 | 贝斯：姬赓 | 鼓：杨友耕',
+                    notesFreq: [164.81, 196.00, 246.94, 293.66],
+                    lyrics: '（纯器乐演奏曲 · 时长 01:54）\n强劲的 Grunge / 另类摇滚吉他 Riff 开场。',
+                    story: '原书 P.121《Hit轻音乐》董亚千专访：“Grunge风格的《狗尿馆》其实就是我们对这种风格的一个致敬，大家都曾经特别喜欢这种风格（Nirvana、Blind Melon），但是最终没做成，所以算是弥补一个遗憾吧。”（注：原书P.54目录曾误植为“狗屎馆”，P.121正名为“狗尿馆”）'
+                },
+                {
+                    id: 'a1-2',
+                    title: '02. 不万能的喜剧',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.6, P.26, P.55, P.120',
+                    credits: '作词：姬赓 | 作曲/曼陀铃/吉他：董亚千 | 小号：史立',
+                    notesFreq: [261.63, 329.63, 392.00, 329.63],
+                    lyrics: '哎，愉快的人啊 / 和你们一样\n我只是被诱捕的傻鸟 / 不停歌唱\n哎，悲伤的人啊 / 和你们一样\n我只是被灌醉的小丑 / 歌唱',
+                    story: '原书 P.6 & P.26：乐队告别英文“鸟语”哼唱的第一首中文歌。曲子是董亚千最抑郁的时候写的，单纯好听；歌词浓缩了2003年的境遇。共有电声版、2006不插电版（加入曼陀铃与长笛在豆瓣走红）及2010专辑版三个版本（P.120）。'
+                },
+                {
+                    id: 'a1-3',
+                    title: '03. 揪心的玩笑与漫长的白日梦',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.28, P.55, P.93',
+                    credits: '作词：姬赓 | 作曲：董亚千',
+                    notesFreq: [220.00, 261.63, 329.63, 293.66],
+                    lyrics: '是谁来自山川湖海\n却囿于昼夜，厨房与爱\n来到自我意识的边疆\n看到父亲坐在云端抽烟\n他说孩子去和昨天和解吧',
+                    story: '原书 P.28 土拨鼠现场记：“大提琴平缓、悠扬，吉他和贝司稳扎稳打……就在一瞬间，握紧我矛盾密布的手，万能青年们想要对你说的，全在这诗一样的词里。”'
+                },
+                {
+                    id: 'a1-4',
+                    title: '04. 大石碎胸口',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.48, P.56, P.86',
+                    credits: '作词：姬赓 | 作曲：董亚千 | 小号：史立',
+                    notesFreq: [196.00, 233.08, 293.66, 349.23],
+                    lyrics: '渔王还想继续做渔王 / 可海港已经不知去向\n此刻他醉倒在洗浴中心 / 没有潮汐的梦中\n电灯熄灭 物换星移 泥牛入海\n黑暗好像一颗巨石按在胸口',
+                    story: '原书 P.86 中央人民广播电台 Live Mania 访谈中，董亚千与史立投票最推荐这首歌。姬赓解释：“石家庄有的地方不是很繁荣，但它满街都是洗浴中心，我觉得这个挺奇怪的。”'
+                },
+                {
+                    id: 'a1-5',
+                    title: '05. 洋鸟消夏录 (器乐曲)',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.56, P.101, P.121',
+                    credits: '作曲/木吉他/曼陀铃：董亚千 & 李平',
+                    notesFreq: [293.66, 369.99, 440.00, 587.33],
+                    lyrics: '（原声木吉他与器乐小品 · 时长 01:12）\n如同洗马河畔顺流而下的夏日微风。',
+                    story: '原书 P.101 张向东认为这首曲子最配姬赓那个著名的愿望：“拥有一间在绝壁和溪水之间的录音室，以手工作坊的方式录些小曲，然后让它们顺洗马河漂流而下，绕过群山绕过商人和官府，以古代民歌的方式流传。”'
+                },
+                {
+                    id: 'a1-6',
+                    title: '06. 秦皇岛',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.45, P.56, P.97, P.212',
+                    credits: '作词：姬赓 | 作曲：董亚千 | 小号编曲/吹奏：史立',
+                    notesFreq: [246.94, 293.66, 369.99, 493.88],
+                    lyrics: '站在能分割世界的桥 / 还是看不清\n在那些时刻 / 遮蔽我们，黑暗的心 究竟是什么\n于是他默默追逐着 / 横渡海峡，年轻的人\n看着他们 / 为了彼岸 / 骄傲地灭亡',
+                    story: '原书 P.212 姬赓透露：“《秦皇岛》原先小号是一个间奏。写完以后我们一听，这个旋律特别好，就说把它放到前面吧，色彩会特别不同，高潮提前了，更直接了。”'
+                },
+                {
+                    id: 'a1-7',
+                    title: '07. 十万嬉皮',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.32, P.56, P.72, P.152',
+                    credits: '作词：姬赓 | 作曲：董亚千',
+                    notesFreq: [329.63, 392.00, 440.00, 493.88],
+                    lyrics: '喜欢养狗，不爱洗头\n不事劳作，一无所获\n厌恶争执，不善言说\n终于沦为沉默的帮凶\n借酒浇愁，不太能喝 / 蛊惑他人，麻醉内心',
+                    story: '原书 P.152 凤凰电台访谈：姬赓解释虽然用了“董二千”的名字做支点，但其实综合了乐队四个人的特点（比如“借酒浇愁，不太能喝”其实是姬赓自己 P.23）。'
+                },
+                {
+                    id: 'a1-8',
+                    title: '08. 在这颗行星所有的酒馆',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.42, P.48, P.52, P.80',
+                    credits: '作词：姬赓 | 作曲/布鲁斯吉他：董亚千',
+                    notesFreq: [146.83, 220.00, 261.63, 329.63],
+                    lyrics: '在这颗行星所有的酒馆\n青春、自由似乎理所应得\n面向涣散的未来 / 只唱情歌，看不到坦克\n在科学和啤酒都不能安抚的夜晚\n他们丢失了四季 / 惶惑之行开始',
+                    story: '原书 P.48 记载：“科学与啤酒”恰似理性的姬赓与感性的董亚千。结尾处鼓手小耕空掉第一拍、第二拍进来的精妙反差，源自爵士乐的经验。'
+                },
+                {
+                    id: 'a1-9',
+                    title: '09. 杀死那个石家庄人',
+                    album: '2010《万能青年旅店》',
+                    page: '原书 P.24, P.57, P.74, P.110',
+                    credits: '作词：姬赓 | 作曲：董亚千 | 大提琴：张楠',
+                    notesFreq: [220.00, 246.94, 261.63, 329.63],
+                    lyrics: '傍晚6点下班 / 换掉药厂的衣裳\n妻子在熬粥 / 我去喝几瓶啤酒\n如此生活30年 / 直到大厦崩塌\n一万匹脱缰的马 / 在他脑海中奔跑',
+                    story: '原书 P.110 和小宇评论：“三十年在当代中国是一个魔咒。三十年改革开放，三十年摇滚，三十年足活的青年……场面像是病人们的集体祷告。”'
+                }
+            ],
+            album2: [
+                {
+                    id: 'a2-1',
+                    title: '01. 早 & 02. 泥河',
+                    album: '2020《冀西南林路行》',
+                    page: '原书 P.262, P.277, P.283',
+                    credits: '作词：姬赓 | 作曲：董亚千 | 管乐编写：高太行 | 小号：文智湧/史立',
+                    notesFreq: [196.00, 246.94, 293.66, 369.99],
+                    lyrics: '骤雨重山 将甘苦注入他 / 气息交换 吞石铁吐泥沙\n高地奔流 掠山光过太行 / 平原午休 纵鱼儿跃夕阳\n开山拦河建水库 / 泥沙沉积 运动停息\n乌云汇合 乌云高空踏步 / 再生泥河 就投身激流冲水坝',
+                    story: '原书 P.235 & P.283：经纪人赵亮看到“高地奔流，掠山光过太行。平原午休，纵鱼儿跃夕阳”瞬间飙泪。姬赓谈《早》的管乐：“你说这个声音是21世纪的，还是14世纪、9世纪？它是各个生物之间的关系。”'
+                },
+                {
+                    id: 'a2-2',
+                    title: '03. 平等云雾 & 04. 采石',
+                    album: '2020《冀西南林路行》',
+                    page: '原书 P.205, P.263, P.272',
+                    credits: '作词：姬赓 | 作曲：董亚千 | 硬件噪音：积木',
+                    notesFreq: [164.81, 185.00, 220.00, 277.18],
+                    lyrics: '开采 我的血肉的火光 / 发动 新世界的前进的泡影\n雷鸣 交织爆破成动荡 / 此生再不归太行\n以我之身躯为阶梯 / 以我之身躯为樊篱\n陌生与敌意其中凝聚 / 千座山峰化水泥',
+                    story: '原书 P.272：最初《采石》的歌名就叫《冀西南林路行》，写完这首后乐队才彻底找到了第二张概念专辑的灵魂脉络。'
+                },
+                {
+                    id: 'a2-3',
+                    title: '05. 山雀',
+                    album: '2020《冀西南林路行》',
+                    page: '原书 P.205, P.264, P.278',
+                    credits: '作词：姬赓 | 作曲/12弦木吉他/莱雅琴：董亚千 | 长笛：胡梦鸽',
+                    notesFreq: [329.63, 392.00, 493.88, 587.33],
+                    lyrics: '自然赠予你 / 树冠 微风 肩头的暴雨\n捕食饮水 清早眉间白云生 / 跳跃漫游 晚来拂面渤海风\n爱与疼痛 不觉茫茫道路长 / 生活历险 并肩莽莽原野荒\n大雾重重 时代喧哗造物忙 / 火光忷忷 指引盗寇入太行',
+                    story: '原书 P.205 & P.278：前三段清新宁静如晨光鸟鸣，最后一句“火光忷忷，指引盗寇入太行”陡然揭开危机底色。胡梦鸽的长笛录制惊艳了董亚千，促使他在《郊眠寺》中也临时加入了长笛。'
+                },
+                {
+                    id: 'a2-4',
+                    title: '06. 绕越 & 07. 河北墨麒麟',
+                    album: '2020《冀西南林路行》',
+                    page: '原书 P.264, P.277, P.278',
+                    credits: '作词：姬赓 | 作曲：董亚千 | 爵士小号：文智湧 | 萨克斯嘶吼：李增辉',
+                    notesFreq: [146.83, 174.61, 220.00, 293.66],
+                    lyrics: '听雷声滚滚 / 他默默闭紧嘴唇\n停止吟唱暮色与想念 / 他此刻沉痛而危险\n乌云阻拦明月涌河湾 / 他起身独立向荒原\n试试 冰冷昂贵入云涉水的轻身术\n看看 演员王公游民盗贼的心电图',
+                    story: '原书 P.277-278：前奏中文智湧吹出的“只有气声、带着三连音律动”的声音宛如神兽麒麟啼叫；而后半段李增辉萨克斯与人声不似人间的嘶吼，让隔着玻璃监看的姬赓“眼泪都控制不住”。'
+                },
+                {
+                    id: 'a2-5',
+                    title: '08. 郊眠寺',
+                    album: '2020《冀西南林路行》',
+                    page: '原书 P.264-265, P.273, P.279',
+                    credits: '作词：姬赓 | 作曲/木吉他：董亚千 | 阮/和声：小河 | 塔铃采样：积木/姬赓',
+                    notesFreq: [261.63, 293.66, 329.63, 392.00],
+                    lyrics: '渤海地产 太行水泥 / 宗教医保 慈善股票\n演员失业 电缆失窃 / 共享富裕 共享恐惧\n我有迷魂 额头滚烫 / 我有迷魂 人间明暗\n西郊有密林 助君出重围\n星河下 电子荒原 / 亿万场冷暖 亿万泥污人',
+                    story: '原书 P.279：小提琴手刘阔回忆录制《郊眠寺》最完美的那遍：“那天下午，大厅里灯坏了几盏，昏黄昏黄的。就好像人真的在一个寺院，你就只想睡觉、拉琴。”'
+                }
+            ]
+        };
+
+        let currentAlbumKey = 'album1';
+        let selectedTrack = albumTracks.album1[8]; // 默认《杀死那个石家庄人》
+        let audioCtx = null;
+        let isPlayingAudio = false;
+        let synthInterval = null;
+
+        function switchAlbumTab(albumKey) {
+            currentAlbumKey = albumKey;
+            const tab1 = document.getElementById('albumTab1');
+            const tab2 = document.getElementById('albumTab2');
+            if (albumKey === 'album1') {
+                tab1.className = 'flex-1 py-2 px-3 text-xs font-bold bg-sulfuric text-soot border border-sulfuric';
+                tab2.className = 'flex-1 py-2 px-3 text-xs font-bold bg-soot text-sulfuric border border-sulfuric/40 hover:border-sulfuric';
+            } else {
+                tab2.className = 'flex-1 py-2 px-3 text-xs font-bold bg-sulfuric text-soot border border-sulfuric';
+                tab1.className = 'flex-1 py-2 px-3 text-xs font-bold bg-soot text-sulfuric border border-sulfuric/40 hover:border-sulfuric';
+            }
+            renderTrackList();
+            selectTrack(albumTracks[albumKey][0].id);
+        }
+
+        function renderTrackList() {
+            const container = document.getElementById('trackListContainer');
+            const list = albumTracks[currentAlbumKey];
+            container.innerHTML = list.map(t => `
+                <button onclick="selectTrack('${t.id}')" id="trackBtn-${t.id}" 
+                    class="w-full text-left p-3 border transition flex items-center justify-between ${selectedTrack.id === t.id ? 'bg-rust text-kraft border-sulfuric' : 'bg-soot text-kraft/80 border-sulfuric/30 hover:border-sulfuric'}">
+                    <span class="text-xs sm:text-sm font-bold truncate pr-2">${t.title}</span>
+                    <span class="text-[11px] font-mono bg-charcoal text-sulfuric px-2 py-0.5 shrink-0 border border-sulfuric/40">${t.page}</span>
+                </button>
+            `).join('');
+        }
+
+        function selectTrack(trackId) {
+            const list = albumTracks[currentAlbumKey];
+            const found = list.find(t => t.id === trackId);
+            if (!found) return;
+            selectedTrack = found;
+            renderTrackList();
+
+            document.getElementById('currentTrackAlbumTag').textContent = found.album;
+            document.getElementById('currentTrackPageTag').textContent = found.page;
+            document.getElementById('currentTrackTitle').textContent = found.title;
+            document.getElementById('currentTrackCredits').textContent = found.credits;
+            document.getElementById('currentTrackLyrics').textContent = found.lyrics;
+            document.getElementById('currentTrackStory').textContent = found.story;
+
+            if (isPlayingAudio) {
+                stopSynthAudio();
+                startSynthAudio();
+            } else {
+                drawStaticWaveform();
+            }
+        }
+
+        // Web Audio API 模拟原声分解和弦 / 小号动机
+        function playShortChord() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(329.63, now);
+                osc.frequency.exponentialRampToValueAtTime(440, now + 0.18);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } catch (e) {}
+        }
+
+        function toggleSynthAudio() {
+            if (isPlayingAudio) {
+                stopSynthAudio();
+            } else {
+                startSynthAudio();
+            }
+        }
+
+        function startSynthAudio() {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                isPlayingAudio = true;
+
+                document.getElementById('cdDisc').classList.add('playing');
+                document.getElementById('playAudioIcon').className = 'fa-solid fa-stop';
+                document.getElementById('playAudioText').textContent = '停止动机演示';
+
+                let step = 0;
+                const freqs = selectedTrack.notesFreq || [220, 261.63, 329.63, 392];
+
+                const playStep = () => {
+                    if (!isPlayingAudio) return;
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = step % 2 === 0 ? 'triangle' : 'sine';
+                    osc.frequency.setValueAtTime(freqs[step % freqs.length], now);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.45);
+                    step++;
+                    drawAnimatedWaveform();
+                };
+
+                playStep();
+                synthInterval = setInterval(playStep, 500);
+            } catch (e) {}
+        }
+
+        function stopSynthAudio() {
+            isPlayingAudio = false;
+            if (synthInterval) clearInterval(synthInterval);
+            document.getElementById('cdDisc').classList.remove('playing');
+            document.getElementById('playAudioIcon').className = 'fa-solid fa-play';
+            document.getElementById('playAudioText').textContent = '弹奏动机音色';
+            drawStaticWaveform();
+        }
+
+        function drawStaticWaveform() {
+            const canvas = document.getElementById('waveformCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#C5B378';
+            for (let x = 0; x < canvas.width; x += 6) {
+                const h = 4 + Math.abs(Math.sin(x * 0.05)) * 12;
+                ctx.fillRect(x, (canvas.height - h) / 2, 3, h);
+            }
+        }
+
+        function drawAnimatedWaveform() {
+            const canvas = document.getElementById('waveformCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let x = 0; x < canvas.width; x += 6) {
+                const h = 4 + Math.random() * 22;
+                ctx.fillStyle = x % 12 === 0 ? '#8B261D' : '#C5B378';
+                ctx.fillRect(x, (canvas.height - h) / 2, 3, h);
+            }
+        }
+
+        // 5. 互动 4：原书细节问答测试
+        const quizQuestions = [
+            {
+                q: '1. 根据姬赓在《那些梦想还万能的日子》（原书 P.2）中的描述，唯一没有民心河老宅钥匙的房主董亚千，每次回家是怎么开门的？',
+                options: [
+                    'A. 翻二楼阳台窗户进去',
+                    'B. 抠下门边一块水泥，伸手进去开门',
+                    'C. 打电话叫小马仔2崔过来送钥匙'
+                ],
+                correct: 1,
+                explanation: '回答正确！原书 P.2 原文：“2千是唯一一个没有他家钥匙的人，每次回家他都得抠下门边一块水泥，然后伸手进去开门，进去经常要面对些睡相难看的陌生男女。”'
+            },
+            {
+                q: '2. 乐队前身“The Nico”的名字来源于他们最崇敬的哪支美国90年代另类摇滚乐队？（原书 P.1, P.6）',
+                options: [
+                    'A. 地下丝绒 (The Velvet Underground)',
+                    'B. 盲瓜乐队 (Blind Melon 主唱小女儿的名字)',
+                    'C. 碎瓜乐队 (The Smashing Pumpkins)'
+                ],
+                correct: 1,
+                explanation: '完全正确！原书 P.1 & P.6 多次强调，The Nico 与地下丝绒女主唱无关，而是纪念偶像 Blind Melon 主唱 Shannon Hoon 的女儿 Nico Blue。'
+            },
+            {
+                q: '3. 小号手史立除了吹小号和做《我爱摇滚乐》排版美编外，在乐队里最自信的隐藏身份是什么？（原书 P.85, P.163）',
+                options: [
+                    'A. 拿手菜为回锅肉与泡菜酸菜鱼的川菜厨子',
+                    'B. 石家庄二手摩托车修理技师',
+                    'C. 河北师大附中乒乓球陪练'
+                ],
+                correct: 0,
+                explanation: '太棒了！原书 P.85 电台访谈中史立直言：“其实我是一个厨子，从小的志向就是当一个川菜厨子，最拿手的是回锅肉。”董亚千天天吃他做的菜。'
+            },
+            {
+                q: '4. 2010年首张同名专辑《万能青年旅店》封面上，弯曲身体跳水的人像与“毛体书法”是谁设计的？（原书 P.68, P.251）',
+                options: [
+                    'A. 乐评人和小宇',
+                    'B. 平面设计师阮千瑞（小阮）',
+                    'C. 《我爱摇滚乐》主编晓朱'
+                ],
+                correct: 1,
+                explanation: '正确！原书 P.68 收录了阮千瑞《毁烬蓝图》，P.251-260 详细讲述了阮千瑞选用金色硫酸纸、负像跳水者与毛体书法的全过程。'
+            },
+            {
+                q: '5. 2020年第二张专辑《冀西南林路行》是在石家庄哪座被姬赓命名为“郊眠寺”的建筑里录制的？（原书 P.249, P.275）',
+                options: [
+                    'A. 华北制药厂废弃发酵车间',
+                    'B. 河北电影制片厂80年代老配音录音室',
+                    'C. 井陉县太行山水泥厂仓库'
+                ],
+                correct: 1,
+                explanation: '满分细节控！原书 P.275 记载，棉二排练厅拆迁后，乐队搬进了河北电影制片厂300多平、层高8米的电影配乐棚，命名为“郊眠寺”。'
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (currentQuizIndex >= quizQuestions.length) {
+                const rank = quizScore === 5 ? '统领地3000远征军元老' : (quizScore >= 3 ? '民心河持钥匙熟客' : '初来石家庄的旅人');
+                document.getElementById('passQuizScoreBadge').textContent = `段位：${rank} (${quizScore}/5)`;
+                container.innerHTML = `
+                    <div class="bg-soot text-kraft p-6 border-2 border-rust text-center space-y-4">
+                        <span class="bg-rust text-kraft px-3 py-1 text-xs font-mono">CHALLENGE COMPLETED</span>
+                        <h4 class="text-2xl font-black text-sulfuric">你的原书精读得分：${quizScore} / 5</h4>
+                        <p class="text-xs text-kraft/80">获得称号：<strong class="text-sulfuric">${rank}</strong>（已自动同步印制在右侧你的专属旅店门禁卡上！）</p>
+                        <button onclick="restartQuiz()" class="bg-sulfuric text-soot font-bold px-5 py-2 text-xs hover:bg-rust hover:text-kraft transition">
+                            重新挑战一次
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const item = quizQuestions[currentQuizIndex];
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center text-xs font-mono text-soot/70">
+                        <span>QUESTION ${currentQuizIndex + 1} OF ${quizQuestions.length}</span>
+                        <span>当前得分：${quizScore}</span>
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-soot leading-snug">${item.q}</h4>
+                    <div class="space-y-2.5">
+                        ${item.options.map((opt, idx) => `
+                            <button onclick="answerQuiz(${idx})" id="quizOpt-${idx}" 
+                                class="w-full text-left p-3 text-xs sm:text-sm font-bold border-2 border-soot bg-white/70 hover:bg-sulfuric/40 transition flex items-center justify-between">
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quizFeedback" class="hidden p-4 bg-soot text-kraft text-xs leading-relaxed border-l-4 border-rust"></div>
+                </div>
+            `;
+        }
+
+        function answerQuiz(idx) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+            const item = quizQuestions[currentQuizIndex];
+            const feedback = document.getElementById('quizFeedback');
+            const selectedBtn = document.getElementById('quizOpt-' + idx);
+            const correctBtn = document.getElementById('quizOpt-' + item.correct);
+
+            if (idx === item.correct) {
+                quizScore++;
+                selectedBtn.classList.remove('bg-white/70');
+                selectedBtn.classList.add('bg-rust', 'text-kraft');
+            } else {
+                selectedBtn.classList.remove('bg-white/70');
+                selectedBtn.classList.add('bg-soot/80', 'text-kraft', 'line-through');
+                correctBtn.classList.remove('bg-white/70');
+                correctBtn.classList.add('bg-rust', 'text-kraft');
+            }
+
+            const rank = quizScore === 5 ? '统领地3000远征军元老' : (quizScore >= 3 ? '民心河持钥匙熟客' : '候补房客');
+            document.getElementById('passQuizScoreBadge').textContent = `段位：${rank} (${quizScore}/5)`;
+
+            feedback.classList.remove('hidden');
+            feedback.innerHTML = `
+                <p class="mb-3"><strong class="text-sulfuric">${idx === item.correct ? '✓ 回答正确！' : '✗ 差一点点！'}</strong> ${item.explanation}</p>
+                <button onclick="nextQuizQuestion()" class="bg-sulfuric text-soot font-bold px-4 py-1.5 text-xs hover:bg-rust hover:text-kraft transition">
+                    ${currentQuizIndex + 1 < quizQuestions.length ? '下一题 →' : '查看通关段位 →'}
+                </button>
+            `;
+        }
+
+        function nextQuizQuestion() {
+            quizAnswered = false;
+            currentQuizIndex++;
+            renderQuiz();
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            quizAnswered = false;
+            renderQuiz();
+        }
+
+        function updatePassCard() {
+            const name = document.getElementById('guestNameInput').value.trim() || '匿名傻鸟';
+            const room = document.getElementById('guestRoomSelect').value;
+            document.getElementById('passGuestName').textContent = name;
+            document.getElementById('passGuestRoom').textContent = room;
+        }
+
+        // 6. 互动 5：行星酒馆读者共鸣墙
+        const pubMessages = [
+            {
+                user: 'Redweff (策展分享人)',
+                drink: '🍵 福建建阳油滴建盏茶 (姬赓收藏 P.163)',
+                comment: '通读完这292页文献，最打动我的不仅是《杀死那个石家庄人》的宏大隐喻，更是P.49大岁说的那句：“他们没大家想的那么黑暗抑郁可怜兮兮，人家只是一群欢快的苦逼！”愿我们在空地消失后依然并肩站在一起。',
+                pageRef: 'P.49 & P.55'
+            },
+            {
+                user: '河北师大附中乒乓少年',
+                drink: '🍺 2块钱三九普啤 (七声酒吧 P.10)',
+                comment: '看到原书 P.225 晓朱回忆从河北师大附中西北角翻墙回家抽烟，再对照 P.124 姬赓解释乒乓球是师长眼里唯一正当的压抑宣泄，一下看哭了。',
+                pageRef: 'P.124 & P.225'
+            },
+            {
+                user: '太行山寻路人',
+                drink: '🍶 矿泉水瓶装衡水老白干 (春游火车 P.37)',
+                comment: '从2010的“前已无通路，后不见归途”(P.32) 到2020的“西郊有密林，助君出重围”(P.265)，十年时间，鸵鸟终于把头从沙堆里拔出来奔向荒原了。',
+                pageRef: 'P.32 & P.265'
+            }
+        ];
+
+        function renderPubWall() {
+            const container = document.getElementById('pubWallContainer');
+            container.innerHTML = pubMessages.map(m => `
+                <div class="bg-white/75 p-4 border-2 border-soot shadow-[4px_4px_0px_#1A1817] flex flex-col justify-between space-y-3">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-start gap-2 border-b border-soot/20 pb-2">
+                            <span class="font-black text-sm text-soot">${m.user}</span>
+                            <span class="page-badge text-[10px]">${m.pageRef}</span>
+                        </div>
+                        <span class="inline-block text-[11px] bg-sulfuric/40 text-soot px-2 py-0.5 font-medium border border-soot/30">${m.drink}</span>
+                        <p class="text-xs text-soot/90 leading-relaxed">${m.comment}</p>
+                    </div>
+                    <div class="text-[10px] font-mono text-rust text-right">ALL THE PUBS ON THIS PLANET</div>
+                </div>
+            `).join('');
+        }
+
+        function addPubMessage() {
+            const user = document.getElementById('pubUser').value.trim() || '行星酒馆夜归人';
+            const drink = document.getElementById('pubDrink').value;
+            const comment = document.getElementById('pubComment').value.trim();
+            if (!comment) return;
+
+            pubMessages.unshift({
+                user,
+                drink,
+                comment,
+                pageRef: '读者共鸣札记'
+            });
+            document.getElementById('pubComment').value = '';
+            renderPubWall();
+            playShortChord();
+        }
+
+        // 7. 顶部原书页码与关键词全局筛选器
+        function filterByPageOrKeyword() {
+            const query = document.getElementById('pageSearchInput').value.trim().toLowerCase();
+            const sections = document.querySelectorAll('.book-section');
+            const banner = document.getElementById('searchStatusBanner');
+            const bannerText = document.getElementById('searchStatusText');
+            const resetBtn = document.getElementById('resetFilterBtn');
+
+            if (!query) {
+                resetFilter();
+                return;
+            }
+
+            let matchCount = 0;
+            sections.forEach(sec => {
+                const text = sec.innerText.toLowerCase();
+                const pages = (sec.getAttribute('data-pages') || '').toLowerCase();
+                if (text.includes(query) || pages.includes(query)) {
+                    sec.classList.remove('hidden');
+                    matchCount++;
+                } else {
+                    sec.classList.add('hidden');
+                }
+            });
+
+            banner.classList.remove('hidden');
+            resetBtn.classList.remove('hidden');
+            bannerText.textContent = `已为您筛选出 ${matchCount} 个包含“${query}”的原书文献章节（全书共292页）`;
+        }
+
+        function resetFilter() {
+            document.getElementById('pageSearchInput').value = '';
+            document.querySelectorAll('.book-section').forEach(sec => sec.classList.remove('hidden'));
+            document.getElementById('searchStatusBanner').classList.add('hidden');
+            document.getElementById('resetFilterBtn').classList.add('hidden');
+        }
+
+        // 支持回车搜索
+        document.getElementById('pageSearchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') filterByPageOrKeyword();
+        });
+
+        // 页面初始化
+        window.onload = function() {
+            selectPrism('dong');
+            renderLotResult(lyricLots[0]);
+            renderTrackList();
+            selectTrack('a1-9');
+            renderQuiz();
+            renderPubWall();
+        };
+    </script>
+</body>
+</html>
